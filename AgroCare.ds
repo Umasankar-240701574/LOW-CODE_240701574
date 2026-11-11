@@ -1,0 +1,7408 @@
+/*
+ * Author       : umasankar.n.2024.cse_raja280
+ * Generated on : 11-Nov-2026 09:22:37
+ * Version      : 1.0
+ */
+ application "AgroCare"
+ {
+ 	date format = "dd-MMM-yyyy"
+ 	time zone = "Asia/Kolkata"
+ 	time format = "24-hr"
+
+ 	forms
+	{
+		form Alert
+		{
+			success message = "Alert Added Successfully"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			Alert_ID
+			(
+    			type = autonumber
+				displayname = "Alert ID"
+				start index = 1
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Farmer
+			(
+				type = picklist	
+				values  = Farmer.ID
+    			displayformat = [" " + Farmer_Name.prefix + " " + Farmer_Name.first_name + " " + Farmer_Name.last_name + " " + Farmer_Name.suffix]
+				sortorder = ascending
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Plot
+			(
+				type = picklist	
+				values  = Farm_Plot.ID
+    			displayformat = [Plot_Name]
+				sortorder = ascending
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Crop_Plan
+			(
+				type = picklist	
+				displayname = "Crop Plan"
+				values  = Crop_Plan.ID
+    			displayformat = [Plan_Name]
+				sortorder = ascending
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Disease
+			(
+				type = picklist	
+				values  = Disease_Master.ID
+    			displayformat = [Disease_Name]
+				sortorder = ascending
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Alert_Type
+			(
+				type = picklist
+				displayname = "Alert Type"
+				maxchar = 100
+				values = {"Weather","Disease Risk","Irrigation","Low Stock","General"}
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Severity
+			(
+				type = picklist
+				displayname = "Severity "
+				maxchar = 100
+				values = {"Info","Warning","Critical"}
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Title
+			(
+    			type = text
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Temperature
+			(
+				type = decimal
+				displayname = "Temperature "
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Humidity
+			(
+				type = decimal
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Message
+			(
+    			type = textarea
+				height = 100px
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Alert_Date
+			(
+    			type = datetime
+				displayname = "Alert Date"
+				initial value = "${zoho.currenttime}"
+				timedisplayoptions = "hh:mm:ss"
+				alloweddays = 0,1,2,3,4,5,6
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Risk_Level
+			(
+				type = picklist
+				displayname = "Risk Level"
+				maxchar = 100
+				values = {"Low","Medium","High"}
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Sent_Via
+			(
+				type = picklist
+				displayname = "Sent Via"
+				maxchar = 100
+				values = {"App","Email","SMS"}
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Read_Status
+			(
+				type = picklist
+				displayname = "Read Status"
+				maxchar = 100
+				values = {"Unread","Read"}
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		form Crop
+		{
+			success message = "Crop Added Successfully"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			must have unique Crop_Name
+			(
+    			type = text
+				displayname = "Crop Name"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Season
+			(
+				type = picklist
+				maxchar = 100
+				values = {"Kharif","Rabi","Zaid"}
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Min_PH
+			(
+				type = decimal
+				displayname = "Min PH"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Max_PH
+			(
+				type = decimal
+				displayname = "Max PH"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Water_Need
+			(
+				type = picklist
+				displayname = "Water Need"
+				maxchar = 100
+				values = {"Low","Medium","High"}
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Suitable_Soils
+			(
+				type = list	
+				displayname = "Suitable Soils"
+				values  = Soil_Type.ID
+    			displayformat = [Soil_Name]
+				sortorder = ascending
+				height = 60px
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Duration_Days
+			(
+				type = number
+				displayname = "Duration(Days)"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Description
+			(
+    			type = textarea
+				height = 100px
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		form Crop_Guide
+		{
+			displayname = "Crop Guide"
+			success message = "Crop Guide Added Successfully"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			must have Crop
+			(
+				type = picklist	
+				values  = Crop.ID
+    			displayformat = [Crop_Name]
+				sortorder = ascending
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Climate
+			(
+    			type = textarea
+				height = 100px
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Sowing_Steps
+			(
+    			type = textarea
+				displayname = "Sowing Steps"
+				height = 100px
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Irrigation_Guide
+			(
+    			type = textarea
+				displayname = "Irrigation Guide"
+				height = 100px
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Fertilizer_Schedule
+			(
+    			type = textarea
+				displayname = "Fertilizer Schedule"
+				height = 100px
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Pest_Management
+			(
+    			type = textarea
+				displayname = "Pest Management"
+				height = 100px
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Harvesting
+			(
+    			type = textarea
+				height = 100px
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		form Crop_Health_Log
+		{
+			displayname = "Crop Health Log"
+			success message = "Crop Health Log Added Successfully"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			Log_ID
+			(
+    			type = autonumber
+				displayname = "Log ID"
+				start index = 1
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Crop_Plan
+			(
+				type = picklist	
+				displayname = "Crop Plan"
+				values  = Crop_Plan.ID
+    			displayformat = [Plan_Name]
+				sortorder = ascending
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Farmer
+			(
+				type = picklist	
+				values  = Farmer.ID
+    			displayformat = [" " + Farmer_Name.prefix + " " + Farmer_Name.first_name + " " + Farmer_Name.last_name + " " + Farmer_Name.suffix]
+				sortorder = ascending
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Log_Date
+			(
+    			type = date
+				displayname = "Log Date"
+				alloweddays = 0,1,2,3,4,5,6
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Growth_Stage
+			(
+				type = picklist
+				displayname = "Growth Stage"
+				maxchar = 100
+				values = {"Germination","Vegetative","Flowering","Fruiting","Maturity"}
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Health_Status
+			(
+				type = picklist
+				displayname = "Health Status"
+				maxchar = 100
+				values = {"Excellent","Good","Fair","Poor","Critical"}
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Plant_Height
+			(
+				type = decimal
+				displayname = "Plant Height"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Leaf_Colour
+			(
+				type = picklist
+				displayname = "Leaf Colour"
+				maxchar = 100
+				values = {"Green","Yellowing","Browning","Spotted"}
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Photo
+			(
+    			type = image
+				source  = file
+				aspect ratio = original
+				camera = primary
+				show gallery = true
+				switch camera = true
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Remarks
+			(
+    			type = textarea
+				height = 100px
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		form Crop_Plan
+		{
+			displayname = "Crop Plan"
+			success message = "Crop Plan Added Successfully"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			must have Plot
+			(
+				type = picklist	
+				values  = Farm_Plot.ID
+    			displayformat = [Plot_Name]
+				sortorder = ascending
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Farmer
+			(
+				type = picklist	
+				values  = Farmer.ID
+    			displayformat = [" " + Farmer_Name.prefix + " " + Farmer_Name.first_name + " " + Farmer_Name.last_name + " " + Farmer_Name.suffix]
+				sortorder = ascending
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Crop_Name
+			(
+    			type = text
+				displayname = "Crop Name"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Season
+			(
+				type = picklist
+				maxchar = 100
+				values = {"Kharif","Rabi","Zaid"}
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Year_field
+			(
+				type = number
+				displayname = "Year"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Health_Score
+			(
+				type = number
+				displayname = "Health Score"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Health_Rating
+			(
+				type = picklist
+				displayname = "Health Rating"
+				maxchar = 100
+				values = {"Excellent","Good","FairP","Poor"}
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Plan_Name
+			(
+    			type = text
+				displayname = "Plan Name"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Crop
+			(
+				type = picklist	
+				values  = Crop.ID
+    			displayformat = [Crop_Name]
+				sortorder = ascending
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Seed_Used
+			(
+				type = picklist	
+				displayname = "Seed Used"
+				values  = Seed_Master.ID
+    			displayformat = [Seed_Name]
+				sortorder = ascending
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Sowing_Date
+			(
+    			type = date
+				displayname = "Sowing Date"
+				alloweddays = 0,1,2,3,4,5,6
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Expected_Harvest_DAte
+			(
+    			type = date
+				displayname = "Expected Harvest DAte"
+				alloweddays = 0,1,2,3,4,5,6
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Area_Planted_acres
+			(
+				type = decimal
+				displayname = "Area Planted (acres)"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Status
+			(
+				type = picklist
+				maxchar = 100
+				values = {"Planned","Sown","Growing","Harvested","Failed"}
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Remarks
+			(
+				type = list	
+				values = {"Choice 1","Choice 2","Choice 3"}
+				height = 60px
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		form Crop_Recommendation
+		{
+			displayname = "Crop Recommendation"
+			success message = "Crop Recommendation Added Successfully"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			must have Plot
+			(
+				type = picklist	
+				values  = Farm_Plot.ID
+    			displayformat = [Plot_Name]
+				sortorder = ascending
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Season
+			(
+				type = picklist
+				maxchar = 100
+				values = {"Kharif","Rabi","Zaid"}
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Soil_Type
+			(
+    			type = text
+				displayname = "Soil Type"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Soil_PH
+			(
+				type = decimal
+				displayname = "Soil PH"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Water_Availability
+			(
+    			type = text
+				displayname = "Water Availability"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Recommended_Crops
+			(
+    			type = textarea
+				displayname = "Recommended Crops"
+				height = 100px
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Match_Count
+			(
+				type = number
+				displayname = "Match Count"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Recommendation_Results
+			(
+				type = grid
+				displayname = "Recommendation Results"
+				Crop_Name
+				(
+    				type = text
+					displayname = "Crop Name"
+					width = medium
+				)
+				Score
+				(
+					type = number
+					width = medium
+				)
+				Rank
+				(
+					type = number
+					width = medium
+				)
+	 			row = 2
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		form Disease_Master
+		{
+			displayname = "Disease Master"
+			success message = "Disease Master Added Successfully"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			must have Disease_Name
+			(
+    			type = text
+				displayname = "Disease Name"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Crop
+			(
+				type = list	
+				values  = Crop.ID
+    			displayformat = [Crop_Name]
+				sortorder = ascending
+				height = 60px
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Category
+			(
+				type = picklist
+				maxchar = 100
+				values = {"Fungal","Bacterial","Viral","Pest"}
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Symptoms
+			(
+    			type = textarea
+				height = 100px
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Min_Temp
+			(
+				type = decimal
+				displayname = "Min Temp"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Max_Temp
+			(
+				type = decimal
+				displayname = "Max Temp"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Min_Humidity
+			(
+				type = number
+				displayname = "Min Humidity(%)"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Treatment
+			(
+    			type = textarea
+				height = 100px
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Preventive_Measures
+			(
+    			type = textarea
+				displayname = "Preventive Measures"
+				height = 100px
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		form Farm_Plot
+		{
+			displayname = "Farm Plot"
+			success message = "Farm Plot Added Successfully"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			must have Plot_Name
+			(
+    			type = text
+				displayname = "Plot Name"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Farmer
+			(
+				type = picklist	
+				values  = Farmer.ID
+    			displayformat = [" " + Farmer_Name.prefix + " " + Farmer_Name.first_name + " " + Farmer_Name.last_name + " " + Farmer_Name.suffix]
+				sortorder = ascending
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Soil_Type
+			(
+				type = list	
+				displayname = "Soil Type"
+				values  = Soil_Type.ID
+    			displayformat = [Soil_Name]
+				sortorder = ascending
+				height = 60px
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Plot_Area
+			(
+				type = decimal
+				displayname = "Plot Area"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Soil_PH
+			(
+				type = decimal
+				displayname = "Soil PH"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Water_Availability
+			(
+				type = picklist
+				displayname = "Water Availability"
+				maxchar = 100
+				values = {"High","Medium","Low"}
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Irrigation_Source
+			(
+				type = picklist
+				displayname = "Irrigation Source"
+				maxchar = 100
+				values = {"Borewell","Canal","Tank","Rainfed","Drip"}
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Latitude
+			(
+				type = decimal
+				decimalplace = 6
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Longitude
+			(
+				type = decimal
+				decimalplace = 6
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Status
+			(
+				type = picklist
+				maxchar = 100
+				values = {"Active","InActive"}
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		form Farmer
+		{
+			success message = "Data Added Successfully!"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			must have Farmer_Name
+			(
+    			type = name
+				displayname = "Farmer Name"
+     			prefix
+     			(
+	     			 type = prefix
+	     			 displayname ="Prefix"
+	     			 visibility = false
+	     			 value = {"Mr.","Mrs.","Ms."}
+     			) 
+     			first_name
+     			(
+	     			 type = first_name
+	     			 displayname ="First Name"
+     			) 
+     			last_name
+     			(
+	     			 type = last_name
+	     			 displayname ="Last Name"
+     			) 
+     			suffix
+     			(
+	     			 type = suffix
+	     			 displayname ="Suffix"
+	     			 visibility = false
+     			) 
+	 			row = 1
+	 			column = 1   
+				width = medium
+				personal data = true
+			)
+			must have unique Phone_Number
+			(
+    			type = phonenumber
+				displayname = "Phone"
+	 			row = 1
+	 			column = 1   
+				width = medium
+				personal data = true
+			)
+			Login_Email
+			(
+    			type = email
+				displayname = "Login Email"
+				maxchar = 80
+	 			row = 1
+	 			column = 1   
+				width = medium
+				personal data = true
+			)
+			must have Village
+			(
+    			type = text
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			District
+			(
+    			type = text
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Address
+			(
+    			type = address
+     			capture_coordinates = true
+     			adjust_using_map = false
+     			address_line_1
+     			(
+	     			  type = address_line_1
+	     			  displayname = "Address Line 1"
+     			) 
+     			address_line_2
+     			(
+	     			  type = address_line_2
+	     			  displayname = "Address Line 2"
+     			) 
+     			district_city
+     			(
+	     			  type = district_city
+	     			  displayname = "City / District"
+     			) 
+     			state_province
+     			(
+	     			  type = state_province
+	     			  displayname = "State / Province"
+     			) 
+     			postal_Code
+     			(
+	     			  type = postal_Code
+	     			  displayname = "Postal Code"
+     			) 
+     			country
+     			(
+	     			  type = country
+	     			  displayname = "Country"
+     			) 
+     			latitude
+     			(
+	     			  type = latitude
+	     			  displayname = "latitude"
+	     			 visibility = false
+     			) 
+     			longitude
+     			(
+	     			  type = longitude
+	     			  displayname = "longitude"
+	     			 visibility = false
+     			) 
+	 			row = 1
+	 			column = 1   
+				width = medium
+				personal data = true
+			)
+			must have Total_Land_Area
+			(
+				type = decimal
+				displayname = "Total Land Area"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Preferred_Language
+			(
+				type = picklist
+				displayname = "Preferred Language"
+				maxchar = 100
+				values = {"Tamil","English","Hindi","Malayalam"}
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Status
+			(
+				type = picklist
+				maxchar = 100
+				values = {"Active","InActive"}
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		form Farmer_Request
+		{
+			displayname = "Farmer Request"
+			success message = "Farmer Request Added Successfully"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			Request_Id
+			(
+    			type = autonumber
+				displayname = "Request ID"
+				start index = 1
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Farmer
+			(
+				type = picklist	
+				values  = Farmer.ID
+    			displayformat = [" " + Farmer_Name.prefix + " " + Farmer_Name.first_name + " " + Farmer_Name.last_name + " " + Farmer_Name.suffix]
+				sortorder = ascending
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Request_Date
+			(
+    			type = date
+				displayname = "Request Date"
+				initial value = "${zoho.currentdate}"
+				alloweddays = 0,1,2,3,4,5,6
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Request_Type
+			(
+				type = picklist
+				displayname = "Request Type"
+				maxchar = 100
+				values = {"Seed","Fertilizer","Seed and fertilizer","Advice"}
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Crop_Plan
+			(
+				type = picklist	
+				displayname = "Crop Plan"
+				values  = Crop_Plan.ID
+    			displayformat = [Plan_Name]
+				sortorder = ascending
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Priority
+			(
+				type = picklist
+				maxchar = 100
+				values = {"Normal","Urgent"}
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Stock_Deducted
+			(
+				type = picklist
+				displayname = "Stock Deducted"
+				maxchar = 100
+				values = {"Yes","No"}
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Description
+			(
+    			type = textarea
+				height = 100px
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Status
+			(
+				type = picklist
+				maxchar = 100
+				values = {"Pending","Approved","Rejected","Out of Stock","Issued"}
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Approved_By
+			(
+    			type = text
+				displayname = "Approved By"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Approved_Date
+			(
+    			type = date
+				displayname = "Approved Date"
+				alloweddays = 0,1,2,3,4,5,6
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Rejection_Reason
+			(
+    			type = textarea
+				displayname = "Rejection Reason"
+				height = 100px
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Total_Amount
+			(
+				type = decimal
+				displayname = "Total Amount"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Crop_Stage
+			(
+				type = picklist
+				displayname = "Crop Stage"
+				maxchar = 100
+				values = {"Basal","Vegetative","Flowering","Fruiting"}
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Suggested_Inputs
+			(
+    			type = textarea
+				displayname = "Suggested Inputs"
+				height = 100px
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Request_Items
+			(
+				type = grid
+				displayname = "Request Items"
+				must have Item_Type
+				(
+					type = picklist
+					displayname = "Item Type"
+					maxchar = 100
+					values = {"Seed","Fertilizer"}
+					width = medium
+				)
+				Seed
+				(
+					type = picklist	
+					displayname = "Seed "
+					values  = Seed_Master.ID
+    				displayformat = [Seed_Name]
+					sortorder = ascending
+					width = medium
+				)
+				Fertilizer
+				(
+					type = picklist	
+					displayname = "Fertilizer "
+					values  = Fertilizer_Master.ID
+    				displayformat = [Fertilizer_Name]
+					sortorder = ascending
+					width = medium
+				)
+				must have Quantity
+				(
+					type = decimal
+					width = medium
+				)
+				Unit_Price
+				(
+					type = decimal
+					displayname = "Unit Price"
+					width = medium
+				)
+				Line_Total
+				(
+					type = decimal
+					displayname = "Line Total"
+					width = medium
+				)
+	 			row = 2
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		form Farming_Article
+		{
+			displayname = "Farming Article"
+			success message = "Article Added Successfully"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			must have Title
+			(
+    			type = text
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Category
+			(
+				type = picklist
+				maxchar = 100
+				values = {"Tips","Crop Care","Pest Control","Weather","Schemes"}
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Content
+			(
+    			type = textarea
+				height = 100px
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Image
+			(
+    			type = image
+				source  = file
+				aspect ratio = original
+				camera = primary
+				show gallery = true
+				switch camera = true
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Publish_Date
+			(
+    			type = date
+				displayname = "Publish Date"
+				initial value = "${zoho.currentdate}"
+				alloweddays = 0,1,2,3,4,5,6
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Status
+			(
+				type = picklist
+				maxchar = 100
+				values = {"Draft","Published"}
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Farming"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		form Fertilizer_Master
+		{
+			displayname = "Fertilizer Master"
+			success message = "Fertilizer Master Added Successfully"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			must have unique Fertilizer_Name
+			(
+    			type = text
+				displayname = "Fertilizer Name"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Type_field
+			(
+				type = picklist
+				displayname = "Type"
+				maxchar = 100
+				values = {"Organic","Chemical","Bio-Fertilizer"}
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Nutrient_Content
+			(
+    			type = text
+				displayname = "Nutrient Content"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Suitable_Crop
+			(
+				type = list	
+				displayname = "Suitable Crop"
+				values  = Crop.ID
+    			displayformat = [Crop_Name]
+				sortorder = ascending
+				height = 60px
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Unit
+			(
+				type = picklist
+				maxchar = 100
+				values = {"Kg","Litre","Quintal","Bag"}
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Price_per_Unit
+			(
+				displayname = "Price per Unit"
+				type = INR
+				format = commadotindian
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Recommended_Dosage
+			(
+    			type = text
+				displayname = "Recommended Dosage"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Suitable_Stage
+			(
+				type = picklist
+				displayname = "Suitable Stage"
+				maxchar = 100
+				values = {"Basal","Vegetative","Flowering","Fruiting"}
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Supplier
+			(
+    			type = text
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Description
+			(
+    			type = textarea
+				height = 100px
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		form Fertilizer_Usage
+		{
+			displayname = "Fertilizer Usage"
+			success message = "Fertilizer Usage Added Successfully"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			Usage_ID
+			(
+    			type = autonumber
+				displayname = "Usage ID"
+				start index = 1
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Crop_Plan
+			(
+				type = picklist	
+				displayname = "Crop Plan"
+				values  = Crop_Plan.ID
+    			displayformat = [Plan_Name]
+				sortorder = ascending
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Farmer
+			(
+				type = picklist	
+				values  = Farmer.ID
+    			displayformat = [" " + Farmer_Name.prefix + " " + Farmer_Name.first_name + " " + Farmer_Name.last_name + " " + Farmer_Name.suffix]
+				sortorder = ascending
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Application_Date
+			(
+    			type = date
+				displayname = "Application Date"
+				alloweddays = 0,1,2,3,4,5,6
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Applied_By
+			(
+    			type = text
+				displayname = "Applied By"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Total_Cost
+			(
+    			type = text
+				displayname = "Total Cost"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Next_Application_Date
+			(
+    			type = date
+				displayname = "Next Application Date"
+				alloweddays = 0,1,2,3,4,5,6
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Fertilizers_Applied
+			(
+				type = grid
+				displayname = "Fertilizers Applied"
+				must have Fertilizer
+				(
+					type = picklist	
+					displayname = "Fertilizer "
+					values  = Fertilizer_Master.ID
+    				displayformat = [Fertilizer_Name]
+					sortorder = ascending
+					width = medium
+				)
+				must have Quantity
+				(
+					type = decimal
+					width = medium
+				)
+				Unit_Price
+				(
+    				type = text
+					displayname = "Unit Price"
+					width = medium
+				)
+				must have Method
+				(
+					type = picklist
+					maxchar = 100
+					values = {"Broadcasting","Basal","Top Dressing","Foliar Spray","Drip (Fertigation)"}
+					width = medium
+				)
+				Cost
+				(
+					type = decimal
+					width = medium
+				)
+	 			row = 2
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		form Inventory
+		{
+			success message = "Inventory Added Successfully"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			must have Item_Type
+			(
+				type = picklist
+				displayname = "Item Type"
+				maxchar = 100
+				values = {"Seed","Fertilizer"}
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Seed
+			(
+				type = picklist	
+				displayname = "Seed "
+				values  = Seed_Master.ID
+    			displayformat = [Seed_Name]
+				sortorder = ascending
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Fertilizer
+			(
+				type = picklist	
+				displayname = "Fertilizer "
+				values  = Fertilizer_Master.ID
+    			displayformat = [Fertilizer_Name]
+				sortorder = ascending
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Item_Name
+			(
+    			type = text
+				displayname = "Item Name"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Barcode
+			(
+				type = barcode
+				value = "${Item_Name}${ID}"
+				barcode type = "Code-128"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Current_Stock
+			(
+				type = decimal
+				displayname = "Current Stock"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Unit
+			(
+				type = picklist
+				maxchar = 100
+				values = {"Kg","Packet","Gram","Litre","Bag","Quintal"}
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Reorder_Level
+			(
+				type = decimal
+				displayname = "Reorder Level"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Stock_Status
+			(
+    			type = text
+				displayname = "Stock Status"
+	 			row = 1
+	 			column = 1   
+				width = medium
+    			Formula_Properties
+    			(
+    						value =  if(Current_Stock <= 0,"Out of Stock",if(Current_Stock <= Reorder_Level,"Low","OK"))
+    						visibility = false
+    						format = plaintext
+    			)
+			)
+			Storage_Location
+			(
+    			type = text
+				displayname = "Storage Location"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Last_Restocked
+			(
+    			type = date
+				displayname = "Last Restocked"
+				alloweddays = 0,1,2,3,4,5,6
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Expiry_Date
+			(
+    			type = date
+				displayname = "Expiry Date"
+				alloweddays = 0,1,2,3,4,5,6
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		form Irrigation_Log
+		{
+			displayname = "Irrigation Log"
+			success message = "Data Added Successfully!"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			Log_I
+			(
+    			type = autonumber
+				displayname = "Log ID"
+				start index = 1
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Crop_Plan
+			(
+				type = picklist	
+				displayname = "Crop Plan"
+				values  = Crop_Plan.ID
+    			displayformat = [Plan_Name]
+				sortorder = ascending
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Farmer
+			(
+				type = picklist	
+				values  = Farmer.ID
+    			displayformat = [" " + Farmer_Name.prefix + " " + Farmer_Name.first_name + " " + Farmer_Name.last_name + " " + Farmer_Name.suffix]
+				sortorder = ascending
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Irrigation_Date
+			(
+    			type = date
+				displayname = "Irrigation Date"
+				alloweddays = 0,1,2,3,4,5,6
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Method
+			(
+				type = picklist
+				maxchar = 100
+				values = {"Drip","Sprinkler","Flood","FurrowM","Manual"}
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Water_Source
+			(
+				type = picklist
+				displayname = "Water Source"
+				maxchar = 100
+				values = {"Borewell","Canal","Tank","Rainfall"}
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Water_Amount_Litres
+			(
+				type = decimal
+				displayname = "Water Amount(Litres)"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Duration_minutes
+			(
+				type = number
+				displayname = "Duration (minutes)"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Next_Irrigation_Date
+			(
+    			type = date
+				displayname = "Next Irrigation Date"
+				alloweddays = 0,1,2,3,4,5,6
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Soil_Moisture_Before
+			(
+				type = picklist
+				displayname = "Soil Moisture Before"
+				maxchar = 100
+				values = {"Dry","Moist","Wet"}
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Remarks
+			(
+    			type = textarea
+				height = 100px
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		form Officer
+		{
+			success message = "Officer Added Successfully"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			Officer_Name
+			(
+    			type = text
+				displayname = "Officer Name"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Email
+			(
+    			type = email
+				maxchar = 80
+	 			row = 1
+	 			column = 1   
+				width = medium
+				personal data = true
+			)
+			Phone_Number
+			(
+    			type = phonenumber
+				displayname = "Phone"
+	 			row = 1
+	 			column = 1   
+				width = medium
+				personal data = true
+			)
+			Village_Covered
+			(
+    			type = text
+				displayname = "Village Covered"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		form Officer_Advice
+		{
+			displayname = "Officer Advice"
+			success message = "Officer Advice Added Successfully"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			Advice_ID
+			(
+    			type = autonumber
+				displayname = "Advice ID"
+				start index = 1
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Advice_Source
+			(
+				type = picklist
+				displayname = "Advice Source"
+				maxchar = 100
+				values = {"Pest / Disease Report","Farmer Request"}
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Pest_Disease_Report
+			(
+				type = picklist	
+				displayname = "Pest Disease Report"
+				values  = Pest_Disease_Report.ID
+    			displayformat = [Report_ID]
+				sortorder = ascending
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Farmer_Request
+			(
+				type = picklist	
+				displayname = "Farmer Request"
+				values  = Farmer_Request.ID
+    			displayformat = [Request_Id]
+				sortorder = ascending
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Farmer
+			(
+				type = picklist	
+				values  = Farmer.ID
+    			displayformat = [" " + Farmer_Name.prefix + " " + Farmer_Name.first_name + " " + Farmer_Name.last_name + " " + Farmer_Name.suffix]
+				sortorder = ascending
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Officer_Name
+			(
+    			type = text
+				displayname = "Officer Name"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Advice_Date
+			(
+    			type = date
+				displayname = "Advice Date"
+				initial value = "${zoho.currentdate}"
+				alloweddays = 0,1,2,3,4,5,6
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Diagonsis
+			(
+    			type = textarea
+				height = 100px
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Advice
+			(
+    			type = textarea
+				height = 100px
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Follow_up_Required
+			(
+				type = picklist
+				displayname = "Follow up Required"
+				maxchar = 100
+				values = {"Yes","No"}
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Follow_up_Date
+			(
+    			type = date
+				displayname = "Follow up Date"
+				alloweddays = 0,1,2,3,4,5,6
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Farmer_Feedback
+			(
+				type = picklist
+				displayname = "Farmer Feedback"
+				maxchar = 100
+				values = {"Helpful","Partly Helpful","Not Helpful"}
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Action_Items
+			(
+				type = grid
+				displayname = "Action Items"
+				must have Action_field
+				(
+    				type = text
+					displayname = "Action"
+					width = medium
+				)
+				Product
+				(
+    				type = text
+					width = medium
+				)
+				Dosage
+				(
+    				type = text
+					width = medium
+				)
+				Timing
+				(
+    				type = text
+					width = medium
+				)
+	 			row = 2
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		form Pest_Disease_Report
+		{
+			displayname = "Pest Disease Report"
+			success message = "Pest Disease Report Added Successfully"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			Report_ID
+			(
+    			type = autonumber
+				displayname = "Report ID"
+				start index = 1
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Crop_Plan
+			(
+				type = picklist	
+				displayname = "Crop Plan"
+				values  = Crop_Plan.ID
+    			displayformat = [Plan_Name]
+				sortorder = ascending
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Farmer
+			(
+				type = picklist	
+				values  = Farmer.ID
+    			displayformat = [" " + Farmer_Name.prefix + " " + Farmer_Name.first_name + " " + Farmer_Name.last_name + " " + Farmer_Name.suffix]
+				sortorder = ascending
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Report_Date
+			(
+    			type = date
+				displayname = "Report Date"
+				alloweddays = 0,1,2,3,4,5,6
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Suspected_Disease
+			(
+				type = picklist	
+				displayname = "Suspected Disease"
+				values  = Disease_Master.ID
+    			displayformat = [Disease_Name]
+				sortorder = ascending
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Problem_Category
+			(
+				type = picklist
+				displayname = "Problem Category"
+				maxchar = 100
+				values = {"Fungal","Bacterial","Viral","Pest","Nutrient Deficiency","Not Sure"}
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Symptoms
+			(
+    			type = textarea
+				height = 100px
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Affected_Area
+			(
+				type = number
+				displayname = "Affected Area (%)"
+				maxchar = 3
+				initial value = 0
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Severity
+			(
+				type = picklist
+				maxchar = 100
+				values = {"Low","Medium","High","Critical"}
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Photo
+			(
+    			type = image
+				source  = file
+				aspect ratio = original
+				camera = primary
+				show gallery = true
+				switch camera = true
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Assigned_Officer
+			(
+    			type = text
+				displayname = "Assigned Officer"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Status
+			(
+				type = picklist
+				maxchar = 100
+				values = {"Submitted","Under Review","Advisory Given","Resolved","Monitoring"}
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Remarks
+			(
+    			type = textarea
+				height = 100px
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		form Seed_Master
+		{
+			displayname = "Seed Master"
+			success message = "Master Seeded Successfully"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			must have unique Seed_Name
+			(
+    			type = text
+				displayname = "Seed Name"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Crop
+			(
+				type = picklist	
+				values  = Crop.ID
+    			displayformat = [Crop_Name]
+				sortorder = ascending
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Variety
+			(
+    			type = text
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Unit
+			(
+				type = picklist
+				maxchar = 100
+				values = {"Grams","Quintals","Kg","Packets"}
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Price_per_Unit
+			(
+				displayname = "Price per Unit"
+				type = INR
+				format = commadotindian
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Supplier
+			(
+    			type = text
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Description
+			(
+    			type = textarea
+				height = 100px
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Seed"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		form Soil_Type
+		{
+			displayname = "Soil Type"
+			success message = "Soil Type Added Successfully"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			must have unique Soil_Name
+			(
+    			type = text
+				displayname = "Soil Name"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Min_PH
+			(
+				type = decimal
+				displayname = "Min PH"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Max_PH
+			(
+				type = decimal
+				displayname = "Max PH"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Water_Retention
+			(
+				type = picklist
+				displayname = "Water Retention"
+				maxchar = 100
+				values = {"High","Medium","Low"}
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Description
+			(
+    			type = textarea
+				height = 100px
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+		form Weather_Update
+		{
+			displayname = "Weather Update"
+			success message = "Weather Update Added Successfully"
+			Section
+			(
+				type = section
+	 			row = 1
+	 			column = 0   
+				width = medium
+			)
+			must have Village
+			(
+    			type = text
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Weather_Date
+			(
+    			type = date
+				displayname = "Weather Date"
+				initial value = "${zoho.currentdate}"
+				alloweddays = 0,1,2,3,4,5,6
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Temperature
+			(
+				type = decimal
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Humidity
+			(
+				type = number
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Rainfall_mm
+			(
+				type = decimal
+				displayname = "Rainfall(mm)"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			must have Weather_Condition
+			(
+				type = picklist
+				displayname = "Weather Condition"
+				maxchar = 100
+				values = {"Clear","Cloudy","Rain","Heavy Rain","Hot"}
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+			Alerts_Created
+			(
+				type = number
+				displayname = "Alerts Created"
+	 			row = 1
+	 			column = 1   
+				width = medium
+			)
+	
+			actions
+			{
+				on add
+				{
+					submit
+					(
+   						type = submit
+   						displayname = "Submit"
+					)
+				}
+				on edit
+				{
+					update
+					(
+   						type = submit
+   						displayname = "Update"
+					)
+					cancel
+					(
+   						type = cancel
+   						displayname = "Cancel"
+					)
+				}
+			}
+		}
+	}
+	reports
+	{
+		default list All_Soil_Types
+		{
+			displayName = "All Soil Types"
+			show all rows from Soil_Type    
+			(
+				Soil_Name as "Soil Name"
+				Min_PH as "Min PH"
+				Max_PH as "Max PH"
+				Water_Retention as "Water Retention"
+				Description
+			)
+		}
+		default list All_Crops
+		{
+			displayName = "All Crops"
+			show all rows from Crop    
+			(
+				Crop_Name as "Crop Name"
+				Season
+				Min_PH as "Min PH"
+				Max_PH as "Max PH"
+				Water_Need as "Water Need"
+				Suitable_Soils as "Suitable Soils"
+				Duration_Days as "Duration(Days)"
+				Description
+			)
+		}
+		default list All_Masters
+		{
+			displayName = "All Masters"
+			show all rows from Seed_Master    
+			(
+				Seed_Name as "Seed Name"
+				Crop
+				Variety
+				Unit
+				Price_per_Unit as "Price per Unit"
+				Supplier
+				Description
+			)
+		}
+		default list All_Fertilizer_Masters
+		{
+			displayName = "All Fertilizer Masters"
+			show all rows from Fertilizer_Master    
+			(
+				Fertilizer_Name as "Fertilizer Name"
+				Type_field as "Type"
+				Nutrient_Content as "Nutrient Content"
+				Suitable_Crop as "Suitable Crop"
+				Unit
+				Price_per_Unit as "Price per Unit"
+				Recommended_Dosage as "Recommended Dosage"
+				Supplier
+				Description
+				Suitable_Stage as "Suitable Stage"
+			)
+		}
+		default list All_Disease_Masters
+		{
+			displayName = "All Disease Masters"
+			show all rows from Disease_Master    
+			(
+				Disease_Name as "Disease Name"
+				Crop
+				Category
+				Symptoms
+				Min_Temp as "Min Temp"
+				Max_Temp as "Max Temp"
+				Min_Humidity as "Min Humidity(%)"
+				Treatment
+				Preventive_Measures as "Preventive Measures"
+			)
+		}
+		default list Farmer_Report
+		{
+			displayName = "Farmer Report"
+			show all rows from Farmer    
+			(
+				Farmer_Name  as "Farmer Name"
+				Phone_Number as "Phone"
+				(
+					displayformat = plainnumber 
+				)
+				Login_Email as "Login Email"
+				Village
+				District
+				Address 
+	 			(
+	      			enable = Link_to_Map,Show_As_Text
+	 			)
+				Total_Land_Area as "Total Land Area"
+				Preferred_Language as "Preferred Language"
+				Status
+			)
+		}
+		default list All_Farm_Plots
+		{
+			displayName = "All Farm Plots"
+			show all rows from Farm_Plot    
+			(
+				Plot_Name as "Plot Name"
+				Farmer
+				Soil_Type as "Soil Type"
+				Plot_Area as "Plot Area"
+				Soil_PH as "Soil PH"
+				Water_Availability as "Water Availability"
+				Irrigation_Source as "Irrigation Source"
+				Latitude
+				Longitude
+				Status
+			)
+		}
+		default list All_Crop_Plans
+		{
+			displayName = "All Crop Plans"
+			show all rows from Crop_Plan    
+			(
+				Plot
+				Farmer
+				Season
+				Year_field as "Year"
+				Crop
+				Seed_Used as "Seed Used"
+				Sowing_Date as "Sowing Date"
+				Expected_Harvest_DAte as "Expected Harvest DAte"
+				Area_Planted_acres as "Area Planted (acres)"
+				Status
+				Remarks
+				Plan_Name as "Plan Name"
+				Health_Score as "Health Score"
+				Health_Rating as "Health Rating"
+				Crop_Name as "Crop Name"
+			)
+		}
+		default list All_Crop_Health_Logs
+		{
+			displayName = "All Crop Health Logs"
+			show all rows from Crop_Health_Log    
+			(
+				Log_ID as "Log ID"
+				Crop_Plan as "Crop Plan"
+				Farmer
+				Log_Date as "Log Date"
+				Growth_Stage as "Growth Stage"
+				Health_Status as "Health Status"
+				Plant_Height as "Plant Height"
+				Leaf_Colour as "Leaf Colour"
+				Photo
+				Remarks
+			)
+		}
+		default list Irrigation_Log_Report
+		{
+			displayName = "Irrigation Log Report"
+			show all rows from Irrigation_Log    
+			(
+				Log_I as "Log ID"
+				Crop_Plan as "Crop Plan"
+				Farmer
+				Irrigation_Date as "Irrigation Date"
+				Method
+				Water_Source as "Water Source"
+				Water_Amount_Litres as "Water Amount(Litres)"
+				Duration_minutes as "Duration (minutes)"
+				Soil_Moisture_Before as "Soil Moisture Before"
+				Remarks
+				Next_Irrigation_Date as "Next Irrigation Date"
+			)
+		}
+		default list All_Fertilizer_Usage
+		{
+			displayName = "All Fertilizer Usage"
+			show all rows from Fertilizer_Usage    
+			(
+				Usage_ID as "Usage ID"
+				Crop_Plan as "Crop Plan"
+				Farmer
+				Application_Date as "Application Date"
+				Applied_By as "Applied By"
+				Fertilizers_Applied.Fertilizer as "Fertilizers Applied"
+				Total_Cost as "Total Cost"
+				Next_Application_Date as "Next Application Date"
+			)
+		}
+		default list All_Pest_Disease_Reports
+		{
+			displayName = "All Pest Disease Reports"
+			show all rows from Pest_Disease_Report    
+			(
+				Report_ID as "Report ID"
+				Crop_Plan as "Crop Plan"
+				Farmer
+				Report_Date as "Report Date"
+				Suspected_Disease as "Suspected Disease"
+				Problem_Category as "Problem Category"
+				Symptoms
+				Affected_Area as "Affected Area (%)"
+				Severity
+				Photo
+				Assigned_Officer as "Assigned Officer"
+				Remarks
+				Status
+			)
+		}
+		default list All_Inventories
+		{
+			displayName = "All Inventories"
+			show all rows from Inventory    
+			(
+				Item_Type as "Item Type"
+				Seed as "Seed "
+				Fertilizer as "Fertilizer "
+				Item_Name as "Item Name"
+				Barcode
+				Current_Stock as "Current Stock"
+				Unit
+				Reorder_Level as "Reorder Level"
+				Stock_Status as "Stock Status"
+				Storage_Location as "Storage Location"
+				Last_Restocked as "Last Restocked"
+				Expiry_Date as "Expiry Date"
+			)
+		}
+		default list All_Farmer_Requests
+		{
+			displayName = "All Farmer Requests"
+			show all rows from Farmer_Request    
+			(
+				Request_Id as "Request ID"
+				Farmer
+				Request_Date as "Request Date"
+				Request_Type as "Request Type"
+				Crop_Plan as "Crop Plan"
+				Priority
+				Description
+				Status
+				Approved_By as "Approved By"
+				Approved_Date as "Approved Date"
+				Rejection_Reason as "Rejection Reason"
+				Total_Amount as "Total Amount"
+				Request_Items.Item_Type as "Request Items"
+				Stock_Deducted as "Stock Deducted"
+				Crop_Stage as "Crop Stage"
+				Suggested_Inputs as "Suggested Inputs"
+			)
+		}
+		default list All_Officer_Advices
+		{
+			displayName = "All Officer Advices"
+			show all rows from Officer_Advice    
+			(
+				Advice_ID as "Advice ID"
+				Advice_Source as "Advice Source"
+				Pest_Disease_Report as "Pest Disease Report"
+				Farmer_Request as "Farmer Request"
+				Farmer
+				Officer_Name as "Officer Name"
+				Advice_Date as "Advice Date"
+				Diagonsis
+				Advice
+				Follow_up_Required as "Follow up Required"
+				Follow_up_Date as "Follow up Date"
+				Farmer_Feedback as "Farmer Feedback"
+				Action_Items.Action_field as "Action Items"
+			)
+		}
+		default list All_Alerts
+		{
+			displayName = "All Alerts"
+			show all rows from Alert    
+			(
+				Alert_ID as "Alert ID"
+				Farmer
+				Plot
+				Crop_Plan as "Crop Plan"
+				Alert_Type as "Alert Type"
+				Severity as "Severity "
+				Title
+				Temperature as "Temperature "
+				Humidity
+				Alert_Date as "Alert Date"
+				Sent_Via as "Sent Via"
+				Read_Status as "Read Status"
+				Message
+				Disease
+				Risk_Level as "Risk Level"
+			)
+		}
+		default list All_Officers
+		{
+			displayName = "All Officers"
+			show all rows from Officer    
+			(
+				Officer_Name as "Officer Name"
+				Email
+				Phone_Number as "Phone"
+				(
+					displayformat = plainnumber 
+				)
+				Village_Covered as "Village Covered"
+			)
+		}
+		default list All_Crop_Recommendations
+		{
+			displayName = "All Crop Recommendations"
+			show all rows from Crop_Recommendation    
+			(
+				Plot
+				Season
+				Soil_Type as "Soil Type"
+				Soil_PH as "Soil PH"
+				Water_Availability as "Water Availability"
+				Recommended_Crops as "Recommended Crops"
+				Match_Count as "Match Count"
+				Recommendation_Results.Crop_Name as "Recommendation Results"
+			)
+		}
+		default list All_Crop_Guides
+		{
+			displayName = "All Crop Guides"
+			show all rows from Crop_Guide    
+			(
+				Crop
+				Climate
+				Sowing_Steps as "Sowing Steps"
+				Irrigation_Guide as "Irrigation Guide"
+				Fertilizer_Schedule as "Fertilizer Schedule"
+				Pest_Management as "Pest Management"
+				Harvesting
+			)
+		}
+		default list All_Articles
+		{
+			displayName = "All Articles"
+			show all rows from Farming_Article    
+			(
+				Title
+				Category
+				Content
+				Publish_Date as "Publish Date"
+				Status
+				Image
+			)
+		}
+		list Open_Pest_Disease_Report
+		{
+			displayName = "Open Pest/ Disease Report"
+			show all rows from Pest_Disease_Report    
+			(
+				Report_ID as "Report ID"
+				Crop_Plan as "Crop Plan"
+				Farmer
+				Report_Date as "Report Date"
+				Suspected_Disease as "Suspected Disease"
+				Problem_Category as "Problem Category"
+				Symptoms
+				Affected_Area as "Affected Area (%)"
+				Severity
+				Photo
+				Assigned_Officer as "Assigned Officer"
+				Status
+				Remarks
+			)
+		}
+		list Open_Reports
+		{
+			displayName = "Open Reports"
+			show all rows from Pest_Disease_Report  [Status != "Resolved"]  
+			(
+				Report_ID as "Report ID"
+				Crop_Plan as "Crop Plan"
+				Farmer
+				Report_Date as "Report Date"
+				Suspected_Disease as "Suspected Disease"
+				Problem_Category as "Problem Category"
+				Symptoms
+				(
+					foldcontent = disable
+				)
+				Affected_Area as "Affected Area (%)"
+				Severity
+				Photo
+				Assigned_Officer as "Assigned Officer"
+				Status
+				Remarks
+			)
+			sort by
+			(
+				Report_Date descending
+			)
+		}
+		list Low_Stock_Items
+		{
+			displayName = "Low Stock Items"
+			show all rows from Inventory  [Stock_Status == "Low"]  
+			(
+				Item_Type as "Item Type"
+				Seed as "Seed "
+				Fertilizer as "Fertilizer "
+				Item_Name as "Item Name"
+				Barcode
+				Current_Stock as "Current Stock"
+				Unit
+				Reorder_Level as "Reorder Level"
+				Stock_Status as "Stock Status"
+				Storage_Location as "Storage Location"
+				Last_Restocked as "Last Restocked"
+				Expiry_Date as "Expiry Date"
+			)
+		}
+		kanban Requests_by_Status
+		{
+			displayName = "Requests by Status"
+			show all rows from Farmer_Request    
+			(
+				Request_Id as "Request ID"
+				Farmer
+				Request_Date as "Request Date"
+				Request_Type as "Request Type"
+				Crop_Plan as "Crop Plan"
+				Priority
+				Stock_Deducted as "Stock Deducted"
+				Description
+				Status
+				Approved_By as "Approved By"
+				Approved_Date as "Approved Date"
+				Rejection_Reason as "Rejection Reason"
+				Total_Amount as "Total Amount"
+				Crop_Stage as "Crop Stage"
+				Suggested_Inputs as "Suggested Inputs"
+			)
+			options
+			(
+	 			display field = Status
+	 		)
+		}
+		list My_Alerts
+		{
+			displayName = "My Alerts"
+			show all rows from Alert    
+			(
+				Alert_ID as "Alert ID"
+				Farmer
+				Plot
+				Crop_Plan as "Crop Plan"
+				Disease
+				Alert_Type as "Alert Type"
+				Severity as "Severity "
+				Title
+				Temperature as "Temperature "
+				Humidity
+				Message
+				Alert_Date as "Alert Date"
+				Risk_Level as "Risk Level"
+				Sent_Via as "Sent Via"
+				Read_Status as "Read Status"
+			)
+			sort by
+			(
+				Alert_Date descending
+			)
+		}
+		kanban Case_Board
+		{
+			displayName = "Case Board"
+			show all rows from Pest_Disease_Report    
+			(
+				Report_ID as "Report ID"
+				Crop_Plan as "Crop Plan"
+				Farmer
+				Report_Date as "Report Date"
+				Suspected_Disease as "Suspected Disease"
+				Problem_Category as "Problem Category"
+				Symptoms
+				Affected_Area as "Affected Area (%)"
+				Severity
+				Photo
+				Assigned_Officer as "Assigned Officer"
+				Status
+				Remarks
+			)
+			options
+			(
+	 			display field = Status
+	 		)
+		}
+		default list All_Weather_Updates
+		{
+			displayName = "All Weather Updates"
+			show all rows from Weather_Update    
+			(
+				Village
+				Weather_Date as "Weather Date"
+				Temperature
+				Rainfall_mm as "Rainfall(mm)"
+				Humidity
+				Weather_Condition as "Weather Condition"
+				Alerts_Created as "Alerts Created"
+			)
+		}
+		pivotchart Crop_wise_Area
+		{
+			displayname = "Crop wise Area"
+			based on Autoview_1792403049888_Crop_Plan
+				show all rows from Crop_Plan
+				(
+			Plot 
+			Farmer 
+			Season 
+			Year_field  as "Year"
+			Health_Score  as "Health Score"
+			Health_Rating  as "Health Rating"
+			Plan_Name  as "Plan Name"
+				)
+		}
+		pivotchart Stock_Levels
+		{
+			displayname = "Stock Levels"
+			based on Autoview_1792404979281_Inventory
+				show all rows from Inventory
+				(
+			Item_Type  as "Item Type"
+			Seed 
+			Fertilizer 
+			Item_Name  as "Item Name"
+			Current_Stock  as "Current Stock"
+			Unit 
+			Reorder_Level  as "Reorder Level"
+				)
+		}
+		pivotchart Disease_Report_by_Severity
+		{
+			displayname = "Disease Report by Severity"
+			based on Autoview_1792405045768_Pest_Disease_Report
+				show all rows from Pest_Disease_Report
+				(
+			Report_ID  as "Report ID"
+			Crop_Plan  as "Crop Plan"
+			Farmer 
+			Report_Date  as "Report Date"
+			Suspected_Disease  as "Suspected Disease"
+			Problem_Category  as "Problem Category"
+			Symptoms 
+				)
+		}
+		pivotchart Montly_Request
+		{
+			displayname = "Montly Request"
+			based on Autoview_1792407365417_Farmer_Request
+				show all rows from Farmer_Request
+				(
+			Request_Id  as "Request ID"
+			Farmer 
+			Request_Date  as "Request Date"
+			Request_Type  as "Request Type"
+			Crop_Plan  as "Crop Plan"
+			Priority 
+			Stock_Deducted  as "Stock Deducted"
+				)
+		}
+		pivotchart Crop_Health_Trend
+		{
+			displayname = "Crop Health Trend"
+			based on Autoview_1792407433299_Crop_Health_Log
+				show all rows from Crop_Health_Log
+				(
+			Log_ID  as "Log ID"
+			Crop_Plan  as "Crop Plan"
+			Farmer 
+			Log_Date  as "Log Date"
+			Growth_Stage  as "Growth Stage"
+			Health_Status  as "Health Status"
+			Plant_Height  as "Plant Height"
+				)
+		}
+		pivottable Farmer_wise_Issues
+		{
+			displayname = "Farmer wise Issues"
+			based on Autoview_1792405045768_Pest_Disease_Report
+				show all rows from Pest_Disease_Report
+				(
+			Report_ID  as "Report ID"
+			Crop_Plan  as "Crop Plan"
+			Farmer 
+			Report_Date  as "Report Date"
+			Suspected_Disease  as "Suspected Disease"
+			Problem_Category  as "Problem Category"
+			Symptoms 
+				)
+		}
+		pivotchart Fertilizer_Usage_Chart
+		{
+			displayname = "Fertilizer Usage Chart"
+			based on Autoview_1792408082718_Fertilizer_Usage
+				show all rows from Fertilizer_Usage
+				(
+			Usage_ID  as "Usage ID"
+			Crop_Plan  as "Crop Plan"
+			Farmer 
+			Application_Date  as "Application Date"
+			Applied_By  as "Applied By"
+			Total_Cost  as "Total Cost"
+			Next_Application_Date  as "Next Application Date"
+				)
+		}
+		pivotchart Cases_by_Category
+		{
+			displayname = "Cases by Category"
+			based on Autoview_1792405045768_Pest_Disease_Report
+				show all rows from Pest_Disease_Report
+				(
+			Report_ID  as "Report ID"
+			Crop_Plan  as "Crop Plan"
+			Farmer 
+			Report_Date  as "Report Date"
+			Suspected_Disease  as "Suspected Disease"
+			Problem_Category  as "Problem Category"
+			Symptoms 
+				)
+		}
+	}
+	pages
+	{
+		page Farmer_Dashboard
+		{
+			displayname = "Farmer Dashboard"
+			Content="<zml    \t\t\n\t\t\n\t\t\n\t\t\n\t\t\n>\n\t<layout>\n\t<row>\n\t<column\n   \t\t width='100%'\n   \t>\n\t<dsp id='html_snippet2' elementName='HTML Snippet'\n bgColor=\"#FFFFFF\" \n>\n\t<![CDATA[htmlpage html_snippet2()\ncontent\n&lt;%{\n\tme = Farmer[Login_Email == zoho.loginuserid];\n\tmyId = 0;\n\tmyName = &quot;Farmer&quot;;\n\tfor each  f in me\n\t{\n\t\tmyId = f.ID;\n\t\tmyName = f.Farmer_Name;\n\t}\n\tactiveCrops = Crop_Plan[Farmer == myId &amp;&amp; Status == &quot;Sown&quot; || Status == &quot;Growing&quot;].count();\n\topenRequests = Farmer_Request[Farmer == myId &amp;&amp; Status == &quot;Pending&quot;].count();\n\topenCases = Pest_Disease_Report[Farmer == myId &amp;&amp; Status != &quot;Resolved&quot;].count();\n\tmyAlerts = Alert[Farmer == myId &amp;&amp; Read_Status == &quot;Unread&quot;].count();\n\tavgHealth = 0;\n\tplanCount = 0;\n\tfor each  p in Crop_Plan[Farmer == myId]\n\t{\n\t\tif(p.Health_Score != null)\n\t\t{\n\t\t\tavgHealth = avgHealth + p.Health_Score;\n\t\t\tplanCount = planCount + 1;\n\t\t}\n\t}\n\tif(planCount &gt; 0)\n\t{\n\t\tavgHealth = avgHealth / planCount;\n\t}\n\t%&gt;\n&lt;style&gt;\n  .ag-wrap{font-family:&apos;Segoe UI&apos;,Arial,sans-serif;padding:8px 4px}\n  .ag-hero{background:linear-gradient(135deg,#1b5e20,#7cb342);color:#fff;border-radius:14px;padding:22px 26px;margin-bottom:18px;box-shadow:0 4px 14px rgba(27,94,32,.25)}\n  .ag-hero h1{margin:0;font-size:26px}\n  .ag-hero p{margin:6px 0 0;opacity:.9;font-size:14px}\n  .ag-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px}\n  .ag-card{background:#fff;border-radius:12px;padding:16px 18px;border-left:5px solid #43a047;box-shadow:0 2px 8px rgba(0,0,0,.08)}\n  .ag-num{font-size:30px;font-weight:700;color:#1b5e20;line-height:1.1}\n  .ag-lbl{font-size:13px;color:#607d8b;margin-top:4px;text-transform:uppercase;letter-spacing:.6px}\n  .ag-card.warn{border-left-color:#f9a825}.ag-card.warn .ag-num{color:#e65100}\n  .ag-card.bad{border-left-color:#e53935}.ag-card.bad .ag-num{color:#c62828}\n&lt;/style&gt;\n\n&lt;div class=&quot;ag-wrap&quot;&gt;\n  &lt;div class=&quot;ag-hero&quot;&gt;\n    &lt;h1&gt;Welcome, &lt;%=myName%&gt;&lt;/h1&gt;\n    &lt;p&gt;Your crops, health score, alerts and requests at a glance&lt;/p&gt;\n  &lt;/div&gt;\n  &lt;div class=&quot;ag-grid&quot;&gt;\n    &lt;div class=&quot;ag-card&quot;&gt;&lt;div class=&quot;ag-num&quot;&gt;&lt;%=activeCrops%&gt;&lt;/div&gt;&lt;div class=&quot;ag-lbl&quot;&gt;Active Crops&lt;/div&gt;&lt;/div&gt;\n    &lt;div class=&quot;ag-card&quot;&gt;&lt;div class=&quot;ag-num&quot;&gt;&lt;%=avgHealth%&gt;/100&lt;/div&gt;&lt;div class=&quot;ag-lbl&quot;&gt;Avg Health Score&lt;/div&gt;&lt;/div&gt;\n    &lt;div class=&quot;ag-card bad&quot;&gt;&lt;div class=&quot;ag-num&quot;&gt;&lt;%=myAlerts%&gt;&lt;/div&gt;&lt;div class=&quot;ag-lbl&quot;&gt;Unread Alerts&lt;/div&gt;&lt;/div&gt;\n    &lt;div class=&quot;ag-card warn&quot;&gt;&lt;div class=&quot;ag-num&quot;&gt;&lt;%=openRequests%&gt;&lt;/div&gt;&lt;div class=&quot;ag-lbl&quot;&gt;Pending Requests&lt;/div&gt;&lt;/div&gt;\n    &lt;div class=&quot;ag-card warn&quot;&gt;&lt;div class=&quot;ag-num&quot;&gt;&lt;%=openCases%&gt;&lt;/div&gt;&lt;div class=&quot;ag-lbl&quot;&gt;Open Problems&lt;/div&gt;&lt;/div&gt;\n  &lt;/div&gt;\n&lt;/div&gt;\n&lt;%\n\n}%&gt;]]>\n</dsp>\n</column>\n</row><row>\n\t<column\n   \t\t width='100%'\n   \t>\n\t<report \n\telementName='Report'\n\n\t\n\ttitle = '&quot;My Farm Dashboard&quot;'\n\t\n\t\ttitleColor = '#222326'\n\t\tappLinkName = 'thisapp'\n\t\tlinkName = 'My_Alerts'\n\t\n\t\tiszreport = 'false'\n\theightType = 'auto'\n\theightValue = '700'\n/>\n</column>\n</row><row>\n\t<column\n   \t\t width='100%'\n   \t>\n\t<report \n\telementName='Report 1'\n\n\t\tappLinkName = 'thisapp'\n\t\tlinkName = 'Requests_by_Status'\n\t\n\t\tiszreport = 'false'\n\theightType = 'auto'\n\theightValue = '700'\n/>\n</column>\n</row><row>\n\t<column\n   \t\t width='100%'\n   \t>\n\t<report \n\telementName='Report 2'\n\n\t\tappLinkName = 'thisapp'\n\t\tlinkName = 'Crop_wise_Area'\n\t\n\t\tiszreport = 'true'\n\theightType = 'auto'\n\theightValue = '700'\n/>\n</column>\n</row><row>\n\t<column\n   \t\t width='100%'\n   \t>\n\t<report \n\telementName='Report 3'\n\n\t\tappLinkName = 'thisapp'\n\t\tlinkName = 'Crop_Health_Trend'\n\t\n\t\tiszreport = 'true'\n\theightType = 'auto'\n\theightValue = '700'\n/>\n</column>\n</row>\n</layout>\n</zml>"
+		}
+		page Officer_Dashboard
+		{
+			displayname = "Officer Dashboard"
+			Content="<zml    \t\t\n\t\t\n\t\t\n\t\t\n\t\t\n>\n\t<layout>\n\t<row>\n\t<column\n   \t\t width='100%'\n   \t>\n\t<dsp id='html_snippet1' elementName='HTML Snippet'\n bgColor=\"#FFFFFF\" \n>\n\t<![CDATA[htmlpage html_snippet1()\ncontent\n&lt;%{\n\tnewCases = Pest_Disease_Report[Status == &quot;Submitted&quot;].count();\n\treviewCases = Pest_Disease_Report[Status == &quot;Under Review&quot;].count();\n\tadvisedCases = Pest_Disease_Report[Status == &quot;Advisory Given&quot;].count();\n\tmonitoring = Pest_Disease_Report[Status == &quot;Monitoring&quot;].count();\n\tresolved = Pest_Disease_Report[Status == &quot;Resolved&quot;].count();\n\thighRisk = Alert[Risk_Level == &quot;High&quot;].count();\n\t%&gt;\n&lt;style&gt;\n  .ag-wrap{font-family:&apos;Segoe UI&apos;,Arial,sans-serif;padding:8px 4px}\n  .ag-hero{background:linear-gradient(135deg,#0d47a1,#1e88e5);color:#fff;border-radius:14px;padding:22px 26px;margin-bottom:18px;box-shadow:0 4px 14px rgba(13,71,161,.25)}\n  .ag-hero h1{margin:0;font-size:26px}\n  .ag-hero p{margin:6px 0 0;opacity:.9;font-size:14px}\n  .ag-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px}\n  .ag-card{background:#fff;border-radius:12px;padding:16px 18px;border-left:5px solid #1e88e5;box-shadow:0 2px 8px rgba(0,0,0,.08)}\n  .ag-num{font-size:30px;font-weight:700;color:#0d47a1;line-height:1.1}\n  .ag-lbl{font-size:13px;color:#607d8b;margin-top:4px;text-transform:uppercase;letter-spacing:.6px}\n  .ag-card.warn{border-left-color:#f9a825}.ag-card.warn .ag-num{color:#e65100}\n  .ag-card.bad{border-left-color:#e53935}.ag-card.bad .ag-num{color:#c62828}\n  .ag-card.ok{border-left-color:#43a047}.ag-card.ok .ag-num{color:#1b5e20}\n&lt;/style&gt;\n\n&lt;div class=&quot;ag-wrap&quot;&gt;\n  &lt;div class=&quot;ag-hero&quot;&gt;\n    &lt;h1&gt;Agricultural Officer Dashboard&lt;/h1&gt;\n    &lt;p&gt;New cases, high-risk alerts and case progress at a glance&lt;/p&gt;\n  &lt;/div&gt;\n  &lt;div class=&quot;ag-grid&quot;&gt;\n    &lt;div class=&quot;ag-card bad&quot;&gt;&lt;div class=&quot;ag-num&quot;&gt;&lt;%=newCases%&gt;&lt;/div&gt;&lt;div class=&quot;ag-lbl&quot;&gt;New Cases&lt;/div&gt;&lt;/div&gt;\n    &lt;div class=&quot;ag-card warn&quot;&gt;&lt;div class=&quot;ag-num&quot;&gt;&lt;%=reviewCases%&gt;&lt;/div&gt;&lt;div class=&quot;ag-lbl&quot;&gt;Under Review&lt;/div&gt;&lt;/div&gt;\n    &lt;div class=&quot;ag-card&quot;&gt;&lt;div class=&quot;ag-num&quot;&gt;&lt;%=advisedCases%&gt;&lt;/div&gt;&lt;div class=&quot;ag-lbl&quot;&gt;Advisory Given&lt;/div&gt;&lt;/div&gt;\n    &lt;div class=&quot;ag-card&quot;&gt;&lt;div class=&quot;ag-num&quot;&gt;&lt;%=monitoring%&gt;&lt;/div&gt;&lt;div class=&quot;ag-lbl&quot;&gt;Monitoring&lt;/div&gt;&lt;/div&gt;\n    &lt;div class=&quot;ag-card bad&quot;&gt;&lt;div class=&quot;ag-num&quot;&gt;&lt;%=highRisk%&gt;&lt;/div&gt;&lt;div class=&quot;ag-lbl&quot;&gt;High-Risk Alerts&lt;/div&gt;&lt;/div&gt;\n    &lt;div class=&quot;ag-card ok&quot;&gt;&lt;div class=&quot;ag-num&quot;&gt;&lt;%=resolved%&gt;&lt;/div&gt;&lt;div class=&quot;ag-lbl&quot;&gt;Resolved&lt;/div&gt;&lt;/div&gt;\n  &lt;/div&gt;\n&lt;/div&gt;\n&lt;%\n\n}%&gt;]]>\n</dsp>\n</column>\n</row><row>\n\t<column\n   \t\t width='100%'\n   \t>\n\t<report \n\telementName='Report'\n\n\t\tappLinkName = 'thisapp'\n\t\tlinkName = 'Open_Reports'\n\t\n\t\tiszreport = 'false'\n\theightType = 'auto'\n\theightValue = '700'\n/>\n</column>\n</row><row>\n\t<column\n   \t\t width='100%'\n   \t>\n\t<report \n\telementName='Report 1'\n\n\t\tappLinkName = 'thisapp'\n\t\tlinkName = 'Case_Board'\n\t\n\t\tiszreport = 'false'\n\theightType = 'auto'\n\theightValue = '700'\n/>\n</column>\n</row><row>\n\t<column\n   \t\t width='50%'\n   \t>\n\t<report \n\telementName='Report 2'\n\n\t\tappLinkName = 'thisapp'\n\t\tlinkName = 'Cases_by_Category'\n\t\n\t\tiszreport = 'true'\n\theightType = 'auto'\n\theightValue = '700'\n/>\n</column><column\n   \t\t width='50%'\n   \t>\n\t<report \n\telementName='Report 3'\n\n\t\tappLinkName = 'thisapp'\n\t\tlinkName = 'Farmer_wise_Issues'\n\t\n\t\tiszreport = 'true'\n\theightType = 'auto'\n\theightValue = '700'\n/>\n</column>\n</row>\n</layout>\n</zml>"
+		}
+		page Admin_Dashboard
+		{
+			displayname = "Admin Dashboard"
+			Content="<zml    \t\t\n\t\t\n\t\t\n\t\t\n\t\t\n>\n\t<layout>\n\t<row>\n\t<column\n   \t\t width='100%'\n   \t>\n\t<dsp id='html_snippet' elementName='HTML Snippet'\n bgColor=\"#FFFFFF\" \n>\n\t<![CDATA[htmlpage html_snippet()\ncontent\n&lt;%{\n\ttotalFarmers = Farmer[ID != 0].count();\n\ttotalPlots = Farm_Plot[ID != 0].count();\n\tactivePlans = Crop_Plan[Status == &quot;Sown&quot; || Status == &quot;Growing&quot;].count();\n\topenCases = Pest_Disease_Report[Status != &quot;Resolved&quot;].count();\n\tpendingReqs = Farmer_Request[Status == &quot;Pending&quot;].count();\n\tlowStock = 0;\n\tfor each  inv in Inventory[ID != 0]\n\t{\n\t\tif(inv.Current_Stock &lt;= inv.Reorder_Level)\n\t\t{\n\t\t\tlowStock = lowStock + 1;\n\t\t}\n\t}\n\t%&gt;\n&lt;style&gt;\n  .ag-wrap{font-family:&apos;Segoe UI&apos;,Arial,sans-serif;padding:8px 4px}\n  .ag-hero{background:linear-gradient(135deg,#1b5e20,#43a047);color:#fff;border-radius:14px;padding:22px 26px;margin-bottom:18px;box-shadow:0 4px 14px rgba(27,94,32,.25)}\n  .ag-hero h1{margin:0;font-size:26px}\n  .ag-hero p{margin:6px 0 0;opacity:.9;font-size:14px}\n  .ag-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(160px,1fr));gap:14px}\n  .ag-card{background:#fff;border-radius:12px;padding:16px 18px;border-left:5px solid #43a047;box-shadow:0 2px 8px rgba(0,0,0,.08)}\n  .ag-num{font-size:30px;font-weight:700;color:#1b5e20;line-height:1.1}\n  .ag-lbl{font-size:13px;color:#607d8b;margin-top:4px;text-transform:uppercase;letter-spacing:.6px}\n  .ag-card.warn{border-left-color:#f9a825}.ag-card.warn .ag-num{color:#e65100}\n  .ag-card.bad{border-left-color:#e53935}.ag-card.bad .ag-num{color:#c62828}\n&lt;/style&gt;\n\n&lt;div class=&quot;ag-wrap&quot;&gt;\n  &lt;div class=&quot;ag-hero&quot;&gt;\n    &lt;h1&gt;AgroCare Admin Dashboard&lt;/h1&gt;\n    &lt;p&gt;Farms, crops, disease cases, requests and stock at a glance&lt;/p&gt;\n  &lt;/div&gt;\n  &lt;div class=&quot;ag-grid&quot;&gt;\n    &lt;div class=&quot;ag-card&quot;&gt;&lt;div class=&quot;ag-num&quot;&gt;&lt;%=totalFarmers%&gt;&lt;/div&gt;&lt;div class=&quot;ag-lbl&quot;&gt;Farmers&lt;/div&gt;&lt;/div&gt;\n    &lt;div class=&quot;ag-card&quot;&gt;&lt;div class=&quot;ag-num&quot;&gt;&lt;%=totalPlots%&gt;&lt;/div&gt;&lt;div class=&quot;ag-lbl&quot;&gt;Farm Plots&lt;/div&gt;&lt;/div&gt;\n    &lt;div class=&quot;ag-card&quot;&gt;&lt;div class=&quot;ag-num&quot;&gt;&lt;%=activePlans%&gt;&lt;/div&gt;&lt;div class=&quot;ag-lbl&quot;&gt;Active Crops&lt;/div&gt;&lt;/div&gt;\n    &lt;div class=&quot;ag-card warn&quot;&gt;&lt;div class=&quot;ag-num&quot;&gt;&lt;%=pendingReqs%&gt;&lt;/div&gt;&lt;div class=&quot;ag-lbl&quot;&gt;Pending Requests&lt;/div&gt;&lt;/div&gt;\n    &lt;div class=&quot;ag-card bad&quot;&gt;&lt;div class=&quot;ag-num&quot;&gt;&lt;%=openCases%&gt;&lt;/div&gt;&lt;div class=&quot;ag-lbl&quot;&gt;Open Cases&lt;/div&gt;&lt;/div&gt;\n    &lt;div class=&quot;ag-card warn&quot;&gt;&lt;div class=&quot;ag-num&quot;&gt;&lt;%=lowStock%&gt;&lt;/div&gt;&lt;div class=&quot;ag-lbl&quot;&gt;Low Stock Items&lt;/div&gt;&lt;/div&gt;\n  &lt;/div&gt;\n&lt;/div&gt;\n&lt;%\n\n}%&gt;]]>\n</dsp>\n</column>\n</row><row>\n\t<column\n   \t\t width='50%'\n   \t>\n\t<report \n\telementName='Report'\n\n\t\tappLinkName = 'thisapp'\n\t\tlinkName = 'Crop_wise_Area'\n\t\n\t\tiszreport = 'true'\n\theightType = 'auto'\n\theightValue = '700'\n/>\n</column><column\n   \t\t width='50%'\n   \t>\n\t<report \n\telementName='Report 1'\n\n\t\tappLinkName = 'thisapp'\n\t\tlinkName = 'Stock_Levels'\n\t\n\t\tiszreport = 'true'\n\theightType = 'auto'\n\theightValue = '700'\n/>\n</column>\n</row><row>\n\t<column\n   \t\t width='50%'\n   \t>\n\t<report \n\telementName='Report 2'\n\n\t\tappLinkName = 'thisapp'\n\t\tlinkName = 'Montly_Request'\n\t\n\t\tiszreport = 'true'\n\theightType = 'auto'\n\theightValue = '700'\n/>\n</column><column\n   \t\t width='50%'\n   \t>\n\t<report \n\telementName='Report 3'\n\n\t\tappLinkName = 'thisapp'\n\t\tlinkName = 'Fertilizer_Usage_Chart'\n\t\n\t\tiszreport = 'true'\n\theightType = 'auto'\n\theightValue = '700'\n/>\n</column>\n</row><row>\n\t<column\n   \t\t width='100%'\n   \t>\n\t<report \n\telementName='Report 4'\n\n\t\tappLinkName = 'thisapp'\n\t\tlinkName = 'Cases_by_Category'\n\t\n\t\tiszreport = 'true'\n\theightType = 'auto'\n\theightValue = '700'\n/>\n</column>\n</row><row>\n\t<column\n   \t\t width='100%'\n   \t>\n\t<report \n\telementName='Report 5'\n\n\t\tappLinkName = 'thisapp'\n\t\tlinkName = 'Low_Stock_Items'\n\t\n\t\tiszreport = 'false'\n\theightType = 'auto'\n\theightValue = '700'\n/>\n</column>\n</row>\n</layout>\n</zml>"
+		}
+	}
+
+
+
+
+		workflow
+		{
+		form
+		{
+			Fill_Plan_Name as "Fill Plan Name"
+			{
+				type =  form
+				form = Crop_Plan
+
+				record event = on add or edit
+
+				on success
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											plot = Farm_Plot[ID == input.Plot];
+										crop = Crop[ID == input.Crop];
+										input.Crop_Name = crop.Crop_Name;
+										rec = Crop_Plan[ID == input.ID];
+										rec.Plan_Name=plot.Plot_Name + " - " + crop.Crop_Name + " - " + input.Season;
+										rec.Farmer=plot.Farmer;
+						)
+					}
+				}
+
+			}
+			Calculate_Harvest_Date as "Calculate Harvest Date"
+			{
+				type =  form
+				form = Crop_Plan
+
+				record event = on add or edit
+
+				on validate
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											crop = Crop[ID == input.Crop];
+										if(crop.Duration_Days != null && input.Sowing_Date != null)
+										{
+											Expected_Harvest_Date = input.Sowing_Date.addDay(crop.Duration_Days);
+										}
+						)
+					}
+				}
+
+			}
+			Fill_Farmer_in_Health_Log as "Fill Farmer in Health Log"
+			{
+				type =  form
+				form = Crop_Health_Log
+
+				record event = on add or edit
+
+				on validate
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											plan = Crop_Plan[ID == input.Crop_Plan];
+										if(plan.Farmer != null)
+										{
+											input.Farmer = plan.Farmer;
+										}
+						)
+					}
+				}
+
+			}
+			Fill_Farmer_Irrigation_Lo as "Fill Farmer Irrigation Log"
+			{
+				type =  form
+				form = Irrigation_Log
+
+				record event = on add or edit
+
+				on validate
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											plan = Crop_Plan[ID == input.Crop_Plan];
+										if(plan.Farmer != null)
+										{
+											input.Farmer = plan.Farmer;
+										}
+						)
+					}
+				}
+
+			}
+			Fertilizer_Usage_Calculat as "Fertilizer Usage Calculations"
+			{
+				type =  form
+				form = Fertilizer_Usage
+
+				record event = on add or edit
+
+				on validate
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											// 1. Copy the farmer from the crop plan
+										plan = Crop_Plan[ID == input.Crop_Plan];
+										if(plan.Farmer != null)
+										{
+											input.Farmer = plan.Farmer;
+										}
+										// 2. Fill price and cost for each subform row, and add up the total
+										total = 0.0;
+										for each  row in input.Fertilizers_Applied
+										{
+											fert = Fertilizer_Master[ID == row.Fertilizer];
+											price = fert.Price_per_Unit;
+											row.Unit_Price=price.toString();
+											row.Cost=row.Quantity * price;
+											total = total + row.Quantity * price;
+										}
+										// 3. Save the grand total on the main form
+										input.Total_Cost = total;
+						)
+					}
+				}
+
+			}
+			Request_Calculations as "Request Calculations"
+			{
+				type =  form
+				form = Farmer_Request
+
+				record event = on add or edit
+
+				on validate
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											total = 0.0;
+										for each  row in input.Request_Items
+										{
+											price = 0.0;
+											if(row.Item_Type == "Seed" && row.Seed != null)
+											{
+												seedRec = Seed_Master[ID == row.Seed];
+												price = seedRec.Price_per_Unit;
+											}
+											else if(row.Item_Type == "Fertilizer" && row.Fertilizer != null)
+											{
+												fertRec = Fertilizer_Master[ID == row.Fertilizer];
+												price = fertRec.Price_per_Unit;
+											}
+											row.Unit_Price=price;
+											row.Line_Total=row.Quantity * price;
+											total = total + row.Quantity * price;
+										}
+										input.Total_Amount = total;
+										// suggest inputs for the selected crop and stage
+										if(input.Crop_Plan != null && input.Crop_Stage != null)
+										{
+											cp = Crop_Plan[ID == input.Crop_Plan];
+											tips = "";
+											for each  s in Seed_Master[Crop == cp.Crop]
+											{
+												tips = tips + "Seed: " + s.Seed_Name + "\n";
+											}
+											for each  fm in Fertilizer_Master[Suitable_Stage == input.Crop_Stage]
+											{
+												tips = tips + "Fertilizer: " + fm.Fertilizer_Name + "\n";
+											}
+											input.Suggested_Inputs = tips;
+										}
+						)
+					}
+				}
+
+			}
+			Pest_Report_Setup as "Pest Report Setup"
+			{
+				type =  form
+				form = Pest_Disease_Report
+
+				record event = on add
+
+				on success
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											plan = Crop_Plan[ID == input.Crop_Plan];
+										farmerRec = Farmer[ID == plan.Farmer];
+										// pick an officer by the farmer's village, otherwise any officer
+										officerList = Officer[Village_Covered == farmerRec.Village];
+										if(officerList.count() == 0)
+										{
+											officerList = Officer[ID != 0];
+										}
+										officerName = "";
+										officerEmail = "";
+										for each  off in officerList
+										{
+											if(officerName == "")
+											{
+												officerName = off.Officer_Name;
+												officerEmail = off.Email;
+											}
+										}
+										// update the saved report
+										rep = Pest_Disease_Report[ID == input.ID];
+										rep.Farmer=plan.Farmer;
+										rep.Assigned_Officer=officerName;
+										rep.Status="Under Review";
+										// email the officer
+										if(officerEmail != "")
+										{
+											sendmail
+											[
+												from :zoho.adminuserid
+												to :officerEmail
+												subject :"New pest/disease report: " + plan.Plan_Name
+												message :"Severity: " + input.Severity + "<br>Symptoms: " + input.Symptoms + "<br>Farmer: " + farmerRec.Farmer_Name + ", " + farmerRec.Village
+											]
+										}
+										payload = Map();
+										payload.put("text","New " + input.Severity + " pest/disease report: " + plan.Plan_Name + ". Village: " + farmerRec.Village);
+										resp = invokeurl
+										[
+											url :"https://cliq.zoho.in/api/v2/channelsbyname/agrocare/message"
+											type :POST
+											parameters:payload.toString()
+											connection:"zoho_oauth_connection"
+										];
+										info resp;
+						)
+					}
+				}
+
+			}
+			Advice_Follow_Up as "Advice Follow Up"
+			{
+				type =  form
+				form = Officer_Advice
+
+				record event = on add
+
+				on success
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											farmerRec = Farmer[ID == input.Farmer];
+										// update the linked report or request
+										if(input.Pest_Disease_Report != null)
+										{
+											rep = Pest_Disease_Report[ID == input.Pest_Disease_Report];
+											rep.Status="Advisory Given";
+										}
+										if(input.Farmer_Request != null)
+										{
+											req = Farmer_Request[ID == input.Farmer_Request];
+											req.Status="Issued";
+										}
+										// create an alert for the farmer
+										insert into Alert
+										[
+											Farmer=input.Farmer
+											Alert_Type="General"
+											Severity="Info"
+											Title="Officer advice received"
+											Message=input.Advice
+											Alert_Date=zoho.currenttime
+											Added_User=zoho.loginuser
+										]
+										// email the farmer
+										if(farmerRec.Login_Email != null && farmerRec.Login_Email != "")
+										{
+											sendmail
+											[
+												from :zoho.adminuserid
+												to :farmerRec.Login_Email
+												subject :"AgroCare: advice from " + input.Officer_Name
+												message :"Advice: " + input.Advice + "<br>Please log in to AgroCare for the full action list."
+											]
+										}
+						)
+					}
+				}
+
+			}
+			Fill_Inventory_Item_Name as "Fill Inventory Item Name"
+			{
+				type =  form
+				form = Inventory
+
+				record event = on add or edit
+
+				on validate
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											if(input.Item_Type == "Seed" && input.Seed != null)
+										{
+											seedRec = Seed_Master[ID == input.Seed];
+											input.Item_Name = seedRec.Seed_Name;
+										}
+										else if(input.Item_Type == "Fertilizer" && input.Fertilizer != null)
+										{
+											fertRec = Fertilizer_Master[ID == input.Fertilizer];
+											input.Item_Name = fertRec.Fertilizer_Name;
+										}
+						)
+					}
+				}
+
+			}
+			Soil_PH_Check as "Soil PH Check"
+			{
+				type =  form
+				form = Soil_Type
+
+				record event = on add or edit
+
+				on validate
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											if(input.Min_PH > input.Max_PH)
+										{
+											alert "Min pH cannot be greater than Max pH";
+											cancel submit;
+										}
+										if(input.Min_PH < 0 || input.Max_PH > 14)
+										{
+											alert "pH must be between 0 and 14";
+											cancel submit;
+										}
+						)
+					}
+				}
+
+			}
+			Crop_PH_Check as "Crop PH Check"
+			{
+				type =  form
+				form = Crop
+
+				record event = on add or edit
+
+				on validate
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											if(input.Min_PH > input.Max_PH)
+										{
+											alert "Min pH cannot be greater than Max pH";
+											cancel submit;
+										}
+										if(input.Min_PH < 0 || input.Max_PH > 14)
+										{
+											alert "pH must be between 0 and 14";
+											cancel submit;
+										}
+						)
+					}
+				}
+
+			}
+			Recommended_Crops as "Recommended Crops"
+			{
+				type =  form
+				form = Crop_Recommendation
+
+				record event = on add or edit
+
+				on validate
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											plot = Farm_Plot[ID == input.Plot];
+										soilRec = Soil_Type[ID == plot.Soil_Type];
+										input.Soil_PH = plot.Soil_PH;
+										input.Water_Availability = plot.Water_Availability;
+										Soil_Type_Name = soilRec.Soil_Name;
+										// water levels as numbers so we can compare how close they are
+										waterLevel = Map();
+										waterLevel.put("Low",1);
+										waterLevel.put("Medium",2);
+										waterLevel.put("High",3);
+										plotWater = waterLevel.get(plot.Water_Availability);
+										scoreMap = Map();
+										nameList = List();
+										for each  c in Crop[ID != 0]
+										{
+											score = 0;
+											// Soil (35)
+											if(c.Suitable_Soils.contains(plot.Soil_Type))
+											{
+												score = score + 35;
+											}
+											// Season (30)
+											if(c.Season == input.Season)
+											{
+												score = score + 30;
+											}
+											// Water (20)
+											cropWater = waterLevel.get(c.Water_Need);
+											diff = plotWater - cropWater;
+											if(diff < 0)
+											{
+												diff = 0 - diff;
+											}
+											if(diff == 0)
+											{
+												score = score + 20;
+											}
+											else if(diff == 1)
+											{
+												score = score + 10;
+											}
+											// pH (15)
+											if(plot.Soil_PH >= c.Min_PH && plot.Soil_PH <= c.Max_PH)
+											{
+												score = score + 15;
+											}
+											else if(plot.Soil_PH >= c.Min_PH - 0.5 && plot.Soil_PH <= c.Max_PH + 0.5)
+											{
+												score = score + 7;
+											}
+											if(score >= 40)
+											{
+												scoreMap.put(c.Crop_Name,score);
+												nameList.add(c.Crop_Name);
+											}
+										}
+										// sort crops by score, highest first
+										sorted = List();
+										used = List();
+										for each  pass in nameList
+										{
+											bestName = "";
+											bestScore = -1;
+											for each  n in nameList
+											{
+												if(!used.contains(n) && scoreMap.get(n) > bestScore)
+												{
+													bestName = n;
+													bestScore = scoreMap.get(n);
+												}
+											}
+											if(bestName != "")
+											{
+												sorted.add(bestName);
+												used.add(bestName);
+											}
+										}
+										// write results
+										input.Recommendation_Results.clear();
+										rank = 1;
+										summary = "";
+										for each  nm in sorted
+										{
+											row = Crop_Recommendation.Recommendation_Results();
+											row.Crop_Name=nm;
+											row.Score=scoreMap.get(nm);
+											row.Rank=rank;
+											input.Recommendation_Results.insert(row);
+											if(summary != "")
+											{
+												summary = summary + ", ";
+											}
+											summary = summary + nm + " (" + scoreMap.get(nm) + "/100)";
+											rank = rank + 1;
+										}
+										if(summary == "")
+										{
+											summary = "No suitable crop found. Try another season or contact an agricultural officer.";
+										}
+										input.Recommended_Crops = summary;
+										input.Match_Count = sorted.size();
+						)
+					}
+				}
+
+			}
+			Approve_Request_and_Deduc as "Approve Request and Deduct Stock"
+			{
+				type =  form
+				form = Farmer_Request
+
+				record event = on edit
+
+				on success
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											if(input.Status == "Approved" && input.Stock_Deducted != "Yes")
+										{
+											// Pass 1: check there is enough stock for every row
+											enough = true;
+											for each  row in input.Request_Items
+											{
+												available = 0.0;
+												if(row.Item_Type == "Seed" && row.Seed != null)
+												{
+													for each  inv in Inventory[Seed == row.Seed]
+													{
+														available = available + inv.Current_Stock;
+													}
+													if(available < row.Quantity)
+													{
+														enough = false;
+													}
+												}
+												else if(row.Item_Type == "Fertilizer" && row.Fertilizer != null)
+												{
+													for each  inv2 in Inventory[Fertilizer == row.Fertilizer]
+													{
+														available = available + inv2.Current_Stock;
+													}
+													if(available < row.Quantity)
+													{
+														enough = false;
+													}
+												}
+											}
+											reqRec = Farmer_Request[ID == input.ID];
+											if(enough)
+											{
+												// Pass 2: deduct the stock
+												for each  row in input.Request_Items
+												{
+													if(row.Item_Type == "Seed" && row.Seed != null)
+													{
+														for each  inv3 in Inventory[Seed == row.Seed]
+														{
+															inv3.Current_Stock=inv3.Current_Stock - row.Quantity;
+														}
+													}
+													else if(row.Item_Type == "Fertilizer" && row.Fertilizer != null)
+													{
+														for each  inv4 in Inventory[Fertilizer == row.Fertilizer]
+														{
+															inv4.Current_Stock=inv4.Current_Stock - row.Quantity;
+														}
+													}
+												}
+												reqRec.Stock_Deducted="Yes";
+												reqRec.Approved_By=zoho.loginuser;
+												reqRec.Approved_Date=zoho.currentdate;
+											}
+											else
+											{
+												reqRec.Status="Out of Stock";
+											}
+										}
+						)
+					}
+				}
+
+			}
+			Low_Stock_Alert as "Low Stock Alert"
+			{
+				type =  form
+				form = Inventory
+
+				record event = on add or edit
+
+				on success
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											if(input.Current_Stock <= input.Reorder_Level)
+										{
+											insert into Alert
+											[
+												Alert_Type="Low Stock"
+												Severity="Warning"
+												Title="Low stock: " + input.Item_Name
+												Message=input.Item_Name + " stock is " + input.Current_Stock + " (reorder level " + input.Reorder_Level + "). Please restock."
+												Alert_Date=zoho.currenttime
+												Added_User=zoho.loginuser
+											]
+											sendmail
+											[
+												from :zoho.adminuserid
+												to :"store@yourorg.com"
+												subject :"Low stock: " + input.Item_Name
+												message :input.Item_Name + " is at " + input.Current_Stock + ". Reorder level is " + input.Reorder_Level + "."
+											]
+										}
+						)
+					}
+				}
+
+			}
+			Weather_Advisory1 as "Weather Advisory"
+			{
+				type =  form
+				form = Weather_Update
+
+				record event = on add
+
+				on success
+				{
+					actions 
+					{
+						custom deluge script
+						(
+											created = 0;
+										farmers = Farmer[Village == input.Village && Status == "Active"];
+										for each  f in farmers
+										{
+											// 1. rain advisory
+											if(input.Weather_Condition == "Heavy Rain")
+											{
+												insert into Alert
+												[
+													Farmer=f.ID
+													Alert_Type="Weather"
+													Severity="Critical"
+													Title="Heavy rain expected"
+													Message="Heavy rain expected in " + input.Village + ". Postpone irrigation and fertilizer application."
+													Alert_Date=zoho.currenttime
+													Added_User=zoho.loginuser
+												]
+												created = created + 1;
+											}
+											// 2. disease risk for each active crop of this farmer
+											for each  cp in Crop_Plan[Farmer == f.ID && Status == "Sown" || Status == "Growing"]
+											{
+												for each  d in Disease_Master[Crop == cp.Crop]
+												{
+													if(input.Temperature >= d.Min_Temp && input.Temperature <= d.Max_Temp && input.Humidity >= d.Min_Humidity)
+													{
+														insert into Alert
+														[
+															Farmer=f.ID
+															Crop_Plan=cp.ID
+															Disease=d.ID
+															Alert_Type="Disease Risk"
+															Severity="Warning"
+															Title=d.Disease_Name + " risk high"
+															Message="High humidity (" + input.Humidity + "%) and temperature (" + input.Temperature + " C) may increase " + d.Disease_Name + " risk. Suggested action: " + d.Treatment
+															Temperature=input.Temperature
+															Humidity=input.Humidity
+															Alert_Date=zoho.currenttime
+															Added_User=zoho.loginuser
+														]
+														created = created + 1;
+													}
+												}
+											}
+											// 3. hot weather advisory
+											if(input.Weather_Condition == "Hot" || input.Temperature >= 38)
+											{
+												insert into Alert
+												[
+													Farmer=f.ID
+													Alert_Type="Weather"
+													Severity="Warning"
+													Title="High temperature"
+													Message="Very hot weather in " + input.Village + ". Irrigate in the early morning or evening."
+													Alert_Date=zoho.currenttime
+													Added_User=zoho.loginuser
+												]
+												created = created + 1;
+											}
+										}
+										upd = Weather_Update[ID == input.ID];
+										upd.Alerts_Created=created;
+						)
+					}
+				}
+
+			}
+		}
+
+		schedule
+		{
+			Daily_Weather_and_Disease as "Daily Weather and Disease Check"
+			{
+				type =  schedule
+					status = inactive
+				start = "2026-10-18 06:00:00"
+				frequency = daily
+				time zone = "Asia/Kolkata"
+				on start
+				{
+					actions 
+					{
+					on load
+					(
+						// ---------- 1. LOW STOCK CHECK ----------
+										for each  inv in Inventory[ID != 0]
+										{
+											if(inv.Current_Stock <= inv.Reorder_Level)
+											{
+												lowTitle = "Low stock: " + inv.Item_Name;
+												lowExisting = Alert[Alert_Type == "Low Stock" && Title == lowTitle];
+												if(lowExisting.count() == 0)
+												{
+													insert into Alert
+													[
+														Alert_Type="Low Stock"
+														Severity="Warning"
+														Title=lowTitle
+														Message=inv.Item_Name + " stock is " + inv.Current_Stock + " (reorder level " + inv.Reorder_Level + "). Please restock."
+														Alert_Date=zoho.currenttime
+														Added_User=zoho.loginuser
+													]
+												}
+											}
+										}
+										// ---------- 2. HEALTH SCORE FOR ACTIVE CROP PLANS ----------
+										for each  plan in Crop_Plan[Status == "Sown" || Status == "Growing"]
+										{
+											hs = 0;
+											irr = Irrigation_Log[Crop_Plan == plan.ID && Irrigation_Date >= zoho.currentdate.subDay(7)];
+											if(irr.count() > 0)
+											{
+												hs = hs + 25;
+											}
+											fer = Fertilizer_Usage[Crop_Plan == plan.ID && Application_Date >= zoho.currentdate.subDay(30)];
+											if(fer.count() > 0)
+											{
+												hs = hs + 20;
+											}
+											openRep = Pest_Disease_Report[Crop_Plan == plan.ID && Status != "Resolved"];
+											if(openRep.count() == 0)
+											{
+												hs = hs + 25;
+											}
+											risk = Alert[Crop_Plan == plan.ID && Alert_Type == "Disease Risk" && Alert_Date >= zoho.currentdate.subDay(7)];
+											if(risk.count() == 0)
+											{
+												hs = hs + 15;
+											}
+											goodLog = Crop_Health_Log[Crop_Plan == plan.ID && Health_Status == "Good" || Health_Status == "Excellent" && Log_Date >= zoho.currentdate.subDay(14)];
+											if(goodLog.count() > 0)
+											{
+												hs = hs + 15;
+											}
+											rating = "Poor";
+											if(hs >= 85)
+											{
+												rating = "Excellent";
+											}
+											else if(hs >= 65)
+											{
+												rating = "Good";
+											}
+											else if(hs >= 45)
+											{
+												rating = "Fair";
+											}
+											cp2 = Crop_Plan[ID == plan.ID];
+											cp2.Health_Score=hs;
+											cp2.Health_Rating=rating;
+										}
+										// ---------- 3. IRRIGATION REMINDERS ----------
+										for each  irrLog in Irrigation_Log[Next_Irrigation_Date != null && Next_Irrigation_Date <= zoho.currentdate]
+										{
+											irrPlan = Crop_Plan[ID == irrLog.Crop_Plan];
+											irrFarmer = Farmer[ID == irrLog.Farmer];
+											irrTitle = "Irrigation due: " + irrPlan.Plan_Name;
+											irrExisting = Alert[Alert_Type == "Irrigation" && Title == irrTitle && Alert_Date >= zoho.currentdate];
+											if(irrExisting.count() == 0)
+											{
+												insert into Alert
+												[
+													Farmer=irrLog.Farmer
+													Crop_Plan=irrLog.Crop_Plan
+													Alert_Type="Irrigation"
+													Severity="Info"
+													Title=irrTitle
+													Message="Irrigation is due for your crop. Please irrigate and update the irrigation log."
+													Alert_Date=zoho.currenttime
+													Added_User=zoho.loginuser
+												]
+												if(irrFarmer.Login_Email != null && irrFarmer.Login_Email != "")
+												{
+													sendmail
+													[
+														from :zoho.loginuserid
+														to :irrFarmer.Login_Email
+														subject :"AgroCare reminder: irrigation due"
+														message :"Irrigation is due for " + irrPlan.Plan_Name + ". Please irrigate and update the log."
+													]
+												}
+											}
+										}
+										// ---------- 4. FERTILIZER REMINDERS ----------
+										for each  fertLog in Fertilizer_Usage[Next_Application_Date != null && Next_Application_Date <= zoho.currentdate]
+										{
+											fertPlan = Crop_Plan[ID == fertLog.Crop_Plan];
+											fertFarmer = Farmer[ID == fertLog.Farmer];
+											fertTitle = "Fertilizer due: " + fertPlan.Plan_Name;
+											fertExisting = Alert[Alert_Type == "General" && Title == fertTitle && Alert_Date >= zoho.currentdate];
+											if(fertExisting.count() == 0)
+											{
+												insert into Alert
+												[
+													Farmer=fertLog.Farmer
+													Crop_Plan=fertLog.Crop_Plan
+													Alert_Type="General"
+													Severity="Info"
+													Title=fertTitle
+													Message="The next fertilizer application is due. Please apply and update the usage log."
+													Alert_Date=zoho.currenttime
+													Added_User=zoho.loginuser
+												]
+												if(fertFarmer.Login_Email != null && fertFarmer.Login_Email != "")
+												{
+													sendmail
+													[
+														from :zoho.loginuserid
+														to :fertFarmer.Login_Email
+														subject :"AgroCare reminder: fertilizer due"
+														message :"The next fertilizer application is due for " + fertPlan.Plan_Name + ". Please apply and update the log."
+													]
+												}
+											}
+										}
+										// ---------- 5. COMMUNITY EARLY WARNING ----------
+										doneKeys = List();
+										recentReports = Pest_Disease_Report[Report_Date >= zoho.currentdate.subDay(7) && Status != "Resolved" && Suspected_Disease != null];
+										for each  r in recentReports
+										{
+											rFarmer = Farmer[ID == r.Farmer];
+											village = rFarmer.Village;
+											key = r.Suspected_Disease + "|" + village;
+											if(!doneKeys.contains(key))
+											{
+												doneKeys.add(key);
+												cnt = 0;
+												for each  r2 in recentReports
+												{
+													r2Farmer = Farmer[ID == r2.Farmer];
+													if(r2.Suspected_Disease == r.Suspected_Disease && r2Farmer.Village == village)
+													{
+														cnt = cnt + 1;
+													}
+												}
+												if(cnt >= 3)
+												{
+													disease = Disease_Master[ID == r.Suspected_Disease];
+													warnTitle = "Community warning: " + disease.Disease_Name + " in " + village;
+													for each  f in Farmer[Village == village && Status == "Active"]
+													{
+														warnExisting = Alert[Farmer == f.ID && Title == warnTitle && Alert_Date >= zoho.currentdate];
+														if(warnExisting.count() == 0)
+														{
+															insert into Alert
+															[
+																Farmer=f.ID
+																Alert_Type="Disease Risk"
+																Severity="Critical"
+																Risk_Level="High"
+																Title=warnTitle
+																Message=cnt + " farmers in " + village + " reported " + disease.Disease_Name + " this week. Inspect your crop and take preventive action: " + disease.Treatment
+																Alert_Date=zoho.currenttime
+																Added_User=zoho.loginuser
+															]
+															if(f.Login_Email != null && f.Login_Email != "")
+															{
+																sendmail
+																[
+																	from :zoho.loginuserid
+																	to :f.Login_Email
+																	subject :"AgroCare early warning: " + disease.Disease_Name
+																	message :cnt + " farmers in " + village + " reported " + disease.Disease_Name + ". Please inspect your crop. Suggested action: " + disease.Treatment
+																]
+															}
+														}
+													}
+												}
+											}
+										}
+					)
+					}
+				}
+			}
+		}
+
+
+
+
+	}
+	share_settings
+	{
+			"Read"
+			{
+				name = "Read"
+				type = Users_Permissions
+				permissions = {Chat:true, Predefined:true, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "This profile will have read permission for all components\n"
+			}
+			"Write"
+			{
+				name = "Write"
+				type = Users_Permissions
+				permissions = {Chat:true, Predefined:true, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "This profile will have write permission for all components\n"
+			}
+			"Developer"
+			{
+				name = "Developer"
+				type = Developer
+				permissions = {Chat:false, Predefined:true, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "Developer Profile\n"
+			}
+			"Administrator"
+			{
+				name = "Administrator"
+				type = Users_Permissions
+				permissions = {Chat:true, Predefined:true, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "This profile will have all the permissions.\n"
+			}
+			"Customer"
+			{
+				name = "Customer"
+				type = Customer_Portal
+				permissions = {Chat:false, Predefined:true, ApiAccess:true, PIIAccess:true, ePHIAccess:true}
+				description = "This is the default profile having only add and view permission.\n"
+			}
+			roles
+			{
+				"CEO"
+				{
+					description = "User belonging to this role can access data of all other users."
+					"Agricultural Officer"
+					{
+						description = "Reviews farmer problems and gives advice"
+					}
+					"Farmer"
+					{
+						description = "Manages own farm, crops and requests"
+					}
+				}
+			}
+	}
+
+	customize
+	{
+		icon
+		{
+			text = "AGR"
+			background color = "theme"
+			foreground color = "#ffffff"
+		}
+	}
+
+	connections
+	{
+		zoho_oauth_connection
+		(
+			displayname = "Zoho OAuth Connection"
+			connector = zoho_oauth
+			permissions = {"ZohoCliq.Bots.ALL","ZohoCliq.Buddies.READ","ZohoCliq.Channels.All","ZohoCliq.Departments.READ","ZohoCliq.Messages.READ","ZohoCliq.OrganizationChannels.READ","ZohoCliq.Profile.READ","ZohoCliq.Reminders.ALL","ZohoCliq.StorageData.ALL","ZohoCliq.Teams.ALL","ZohoCliq.Users.CREATE","ZohoCliq.Users.READ","ZohoCliq.Webhooks.CREATE"}
+		)
+	}
+	web
+	{
+		forms
+		{
+			form Alert
+			{
+				label placement = left
+			}
+			form Crop
+			{
+				label placement = left
+			}
+			form Crop_Guide
+			{
+				label placement = left
+			}
+			form Crop_Health_Log
+			{
+				label placement = left
+			}
+			form Crop_Plan
+			{
+				label placement = left
+			}
+			form Crop_Recommendation
+			{
+				label placement = left
+			}
+			form Disease_Master
+			{
+				label placement = left
+			}
+			form Farm_Plot
+			{
+				label placement = left
+			}
+			form Farmer
+			{
+				label placement = left
+			}
+			form Farmer_Request
+			{
+				label placement = left
+			}
+			form Farming_Article
+			{
+				label placement = left
+			}
+			form Fertilizer_Master
+			{
+				label placement = left
+			}
+			form Fertilizer_Usage
+			{
+				label placement = left
+			}
+			form Inventory
+			{
+				label placement = left
+			}
+			form Irrigation_Log
+			{
+				label placement = left
+			}
+			form Officer
+			{
+				label placement = left
+			}
+			form Officer_Advice
+			{
+				label placement = left
+			}
+			form Pest_Disease_Report
+			{
+				label placement = left
+			}
+			form Seed_Master
+			{
+				label placement = left
+			}
+			form Soil_Type
+			{
+				label placement = left
+			}
+			form Weather_Update
+			{
+				label placement = left
+			}
+		}
+		reports
+		{
+			report All_Soil_Types
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Soil_Name as "Soil Name"
+								Min_PH as "Min PH"
+								Max_PH as "Max PH"
+								Water_Retention as "Water Retention"
+								Description
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Soil_Name as "Soil Name"
+								Min_PH as "Min PH"
+								Max_PH as "Max PH"
+								Water_Retention as "Water Retention"
+								Description
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report All_Crops
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Crop_Name as "Crop Name"
+								Season
+								Min_PH as "Min PH"
+								Max_PH as "Max PH"
+								Water_Need as "Water Need"
+								Suitable_Soils as "Suitable Soils"
+								Duration_Days as "Duration(Days)"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Crop_Name as "Crop Name"
+								Season
+								Min_PH as "Min PH"
+								Max_PH as "Max PH"
+								Water_Need as "Water Need"
+								Suitable_Soils as "Suitable Soils"
+								Duration_Days as "Duration(Days)"
+								Description
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report All_Masters
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Seed_Name as "Seed Name"
+								Crop
+								Variety
+								Unit
+								Price_per_Unit as "Price per Unit"
+								Supplier
+								Description
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Seed_Name as "Seed Name"
+								Crop
+								Variety
+								Unit
+								Price_per_Unit as "Price per Unit"
+								Supplier
+								Description
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report All_Fertilizer_Masters
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Fertilizer_Name as "Fertilizer Name"
+								Type_field as "Type"
+								Nutrient_Content as "Nutrient Content"
+								Suitable_Crop as "Suitable Crop"
+								Unit
+								Price_per_Unit as "Price per Unit"
+								Recommended_Dosage as "Recommended Dosage"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Fertilizer_Name as "Fertilizer Name"
+								Type_field as "Type"
+								Nutrient_Content as "Nutrient Content"
+								Suitable_Crop as "Suitable Crop"
+								Unit
+								Price_per_Unit as "Price per Unit"
+								Recommended_Dosage as "Recommended Dosage"
+								Supplier
+								Description
+								Suitable_Stage as "Suitable Stage"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report All_Disease_Masters
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Disease_Name as "Disease Name"
+								Crop
+								Category
+								Symptoms
+								Min_Temp as "Min Temp"
+								Max_Temp as "Max Temp"
+								Min_Humidity as "Min Humidity(%)"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Disease_Name as "Disease Name"
+								Crop
+								Category
+								Symptoms
+								Min_Temp as "Min Temp"
+								Max_Temp as "Max Temp"
+								Min_Humidity as "Min Humidity(%)"
+								Treatment
+								Preventive_Measures as "Preventive Measures"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report Farmer_Report
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Farmer_Name as "Farmer Name"
+								Phone_Number as "Phone"
+								Login_Email as "Login Email"
+								Village
+								District
+								Address
+								Total_Land_Area as "Total Land Area"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Farmer_Name as "Farmer Name"
+								Phone_Number as "Phone"
+								Login_Email as "Login Email"
+								Village
+								District
+								Address
+								Total_Land_Area as "Total Land Area"
+								Preferred_Language as "Preferred Language"
+								Status
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report All_Farm_Plots
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Plot_Name as "Plot Name"
+								Farmer
+								Soil_Type as "Soil Type"
+								Plot_Area as "Plot Area"
+								Soil_PH as "Soil PH"
+								Water_Availability as "Water Availability"
+								Irrigation_Source as "Irrigation Source"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Plot_Name as "Plot Name"
+								Farmer
+								Soil_Type as "Soil Type"
+								Plot_Area as "Plot Area"
+								Soil_PH as "Soil PH"
+								Water_Availability as "Water Availability"
+								Irrigation_Source as "Irrigation Source"
+								Latitude
+								Longitude
+								Status
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report All_Crop_Plans
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Plot
+								Farmer
+								Season
+								Year_field as "Year"
+								Crop
+								Seed_Used as "Seed Used"
+								Sowing_Date as "Sowing Date"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Plot
+								Farmer
+								Season
+								Year_field as "Year"
+								Crop
+								Seed_Used as "Seed Used"
+								Sowing_Date as "Sowing Date"
+								Expected_Harvest_DAte as "Expected Harvest DAte"
+								Area_Planted_acres as "Area Planted (acres)"
+								Status
+								Remarks
+								Plan_Name as "Plan Name"
+								Health_Score as "Health Score"
+								Health_Rating as "Health Rating"
+								Crop_Name as "Crop Name"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report All_Crop_Health_Logs
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Log_ID as "Log ID"
+								Crop_Plan as "Crop Plan"
+								Farmer
+								Log_Date as "Log Date"
+								Growth_Stage as "Growth Stage"
+								Health_Status as "Health Status"
+								Plant_Height as "Plant Height"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Log_ID as "Log ID"
+								Crop_Plan as "Crop Plan"
+								Farmer
+								Log_Date as "Log Date"
+								Growth_Stage as "Growth Stage"
+								Health_Status as "Health Status"
+								Plant_Height as "Plant Height"
+								Leaf_Colour as "Leaf Colour"
+								Photo
+								Remarks
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report Irrigation_Log_Report
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Log_I as "Log ID"
+								Crop_Plan as "Crop Plan"
+								Farmer
+								Irrigation_Date as "Irrigation Date"
+								Method
+								Water_Source as "Water Source"
+								Water_Amount_Litres as "Water Amount(Litres)"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Log_I as "Log ID"
+								Crop_Plan as "Crop Plan"
+								Farmer
+								Irrigation_Date as "Irrigation Date"
+								Method
+								Water_Source as "Water Source"
+								Water_Amount_Litres as "Water Amount(Litres)"
+								Duration_minutes as "Duration (minutes)"
+								Soil_Moisture_Before as "Soil Moisture Before"
+								Remarks
+								Next_Irrigation_Date as "Next Irrigation Date"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report All_Fertilizer_Usage
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Usage_ID as "Usage ID"
+								Crop_Plan as "Crop Plan"
+								Farmer
+								Application_Date as "Application Date"
+								Applied_By as "Applied By"
+								Fertilizers_Applied.Fertilizer as "Fertilizers Applied"
+								Next_Application_Date as "Next Application Date"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Usage_ID as "Usage ID"
+								Crop_Plan as "Crop Plan"
+								Farmer
+								Application_Date as "Application Date"
+								Applied_By as "Applied By"
+								Fertilizers_Applied.Fertilizer as "Fertilizers Applied"
+								Total_Cost as "Total Cost"
+								Next_Application_Date as "Next Application Date"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report All_Pest_Disease_Reports
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Report_ID as "Report ID"
+								Crop_Plan as "Crop Plan"
+								Farmer
+								Report_Date as "Report Date"
+								Suspected_Disease as "Suspected Disease"
+								Problem_Category as "Problem Category"
+								Symptoms
+								Status
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Report_ID as "Report ID"
+								Crop_Plan as "Crop Plan"
+								Farmer
+								Report_Date as "Report Date"
+								Suspected_Disease as "Suspected Disease"
+								Problem_Category as "Problem Category"
+								Symptoms
+								Affected_Area as "Affected Area (%)"
+								Severity
+								Photo
+								Assigned_Officer as "Assigned Officer"
+								Remarks
+								Status
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report All_Inventories
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Item_Type as "Item Type"
+								Seed as "Seed "
+								Fertilizer as "Fertilizer "
+								Item_Name as "Item Name"
+								Barcode
+								Current_Stock as "Current Stock"
+								Unit
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Item_Type as "Item Type"
+								Seed as "Seed "
+								Fertilizer as "Fertilizer "
+								Item_Name as "Item Name"
+								Barcode
+								Current_Stock as "Current Stock"
+								Unit
+								Reorder_Level as "Reorder Level"
+								Stock_Status as "Stock Status"
+								Storage_Location as "Storage Location"
+								Last_Restocked as "Last Restocked"
+								Expiry_Date as "Expiry Date"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report All_Farmer_Requests
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Request_Id as "Request ID"
+								Farmer
+								Request_Date as "Request Date"
+								Request_Type as "Request Type"
+								Crop_Plan as "Crop Plan"
+								Priority
+								Description
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Request_Id as "Request ID"
+								Farmer
+								Request_Date as "Request Date"
+								Request_Type as "Request Type"
+								Crop_Plan as "Crop Plan"
+								Priority
+								Description
+								Status
+								Approved_By as "Approved By"
+								Approved_Date as "Approved Date"
+								Rejection_Reason as "Rejection Reason"
+								Total_Amount as "Total Amount"
+								Request_Items.Item_Type as "Request Items"
+								Stock_Deducted as "Stock Deducted"
+								Crop_Stage as "Crop Stage"
+								Suggested_Inputs as "Suggested Inputs"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report All_Officer_Advices
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Advice_ID as "Advice ID"
+								Advice_Source as "Advice Source"
+								Pest_Disease_Report as "Pest Disease Report"
+								Farmer_Request as "Farmer Request"
+								Farmer
+								Officer_Name as "Officer Name"
+								Advice_Date as "Advice Date"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Advice_ID as "Advice ID"
+								Advice_Source as "Advice Source"
+								Pest_Disease_Report as "Pest Disease Report"
+								Farmer_Request as "Farmer Request"
+								Farmer
+								Officer_Name as "Officer Name"
+								Advice_Date as "Advice Date"
+								Diagonsis
+								Advice
+								Follow_up_Required as "Follow up Required"
+								Follow_up_Date as "Follow up Date"
+								Farmer_Feedback as "Farmer Feedback"
+								Action_Items.Action_field as "Action Items"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report All_Alerts
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Alert_ID as "Alert ID"
+								Farmer
+								Plot
+								Crop_Plan as "Crop Plan"
+								Alert_Type as "Alert Type"
+								Severity as "Severity "
+								Title
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Alert_ID as "Alert ID"
+								Farmer
+								Plot
+								Crop_Plan as "Crop Plan"
+								Alert_Type as "Alert Type"
+								Severity as "Severity "
+								Title
+								Temperature as "Temperature "
+								Humidity
+								Alert_Date as "Alert Date"
+								Sent_Via as "Sent Via"
+								Read_Status as "Read Status"
+								Message
+								Disease
+								Risk_Level as "Risk Level"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report All_Officers
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Officer_Name as "Officer Name"
+								Email
+								Phone_Number as "Phone"
+								Village_Covered as "Village Covered"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Officer_Name as "Officer Name"
+								Email
+								Phone_Number as "Phone"
+								Village_Covered as "Village Covered"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report All_Crop_Recommendations
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Plot
+								Season
+								Soil_Type as "Soil Type"
+								Soil_PH as "Soil PH"
+								Water_Availability as "Water Availability"
+								Recommended_Crops as "Recommended Crops"
+								Match_Count as "Match Count"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Plot
+								Season
+								Soil_Type as "Soil Type"
+								Soil_PH as "Soil PH"
+								Water_Availability as "Water Availability"
+								Recommended_Crops as "Recommended Crops"
+								Match_Count as "Match Count"
+								Recommendation_Results.Crop_Name as "Recommendation Results"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report All_Crop_Guides
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Crop
+								Climate
+								Sowing_Steps as "Sowing Steps"
+								Irrigation_Guide as "Irrigation Guide"
+								Fertilizer_Schedule as "Fertilizer Schedule"
+								Pest_Management as "Pest Management"
+								Harvesting
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Crop
+								Climate
+								Sowing_Steps as "Sowing Steps"
+								Irrigation_Guide as "Irrigation Guide"
+								Fertilizer_Schedule as "Fertilizer Schedule"
+								Pest_Management as "Pest Management"
+								Harvesting
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report All_Articles
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Title
+								Category
+								Content
+								Publish_Date as "Publish Date"
+								Status
+								Image
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Title
+								Category
+								Content
+								Publish_Date as "Publish Date"
+								Status
+								Image
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report Open_Pest_Disease_Report
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Report_ID as "Report ID"
+								Crop_Plan as "Crop Plan"
+								Farmer
+								Report_Date as "Report Date"
+								Suspected_Disease as "Suspected Disease"
+								Problem_Category as "Problem Category"
+								Symptoms
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Report_ID as "Report ID"
+								Crop_Plan as "Crop Plan"
+								Farmer
+								Report_Date as "Report Date"
+								Suspected_Disease as "Suspected Disease"
+								Problem_Category as "Problem Category"
+								Symptoms
+								Affected_Area as "Affected Area (%)"
+								Severity
+								Photo
+								Assigned_Officer as "Assigned Officer"
+								Status
+								Remarks
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report Open_Reports
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Report_ID as "Report ID"
+								Crop_Plan as "Crop Plan"
+								Farmer
+								Severity
+								Status
+								Assigned_Officer as "Assigned Officer"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Report_ID as "Report ID"
+								Crop_Plan as "Crop Plan"
+								Farmer
+								Report_Date as "Report Date"
+								Suspected_Disease as "Suspected Disease"
+								Problem_Category as "Problem Category"
+								Symptoms
+								Affected_Area as "Affected Area (%)"
+								Severity
+								Photo
+								Assigned_Officer as "Assigned Officer"
+								Status
+								Remarks
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report Low_Stock_Items
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Item_Type as "Item Type"
+								Item_Name as "Item Name"
+								Current_Stock as "Current Stock"
+								Reorder_Level as "Reorder Level"
+								Unit
+								Stock_Status as "Stock Status"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Item_Type as "Item Type"
+								Seed as "Seed "
+								Fertilizer as "Fertilizer "
+								Item_Name as "Item Name"
+								Barcode
+								Current_Stock as "Current Stock"
+								Unit
+								Reorder_Level as "Reorder Level"
+								Stock_Status as "Stock Status"
+								Storage_Location as "Storage Location"
+								Last_Restocked as "Last Restocked"
+								Expiry_Date as "Expiry Date"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report Requests_by_Status
+			{
+				quickview
+				(
+					layout
+					(
+		 				type = 1
+						datablock1
+						(
+							layout type = 1
+							fields
+							(
+								Request_Id as "Request ID"
+								Farmer
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Request_Id as "Request ID"
+								Farmer
+								Request_Date as "Request Date"
+								Request_Type as "Request Type"
+								Crop_Plan as "Crop Plan"
+								Priority
+								Stock_Deducted as "Stock Deducted"
+								Description
+								Status
+								Approved_By as "Approved By"
+								Approved_Date as "Approved Date"
+								Rejection_Reason as "Rejection Reason"
+								Total_Amount as "Total Amount"
+								Crop_Stage as "Crop Stage"
+								Suggested_Inputs as "Suggested Inputs"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report My_Alerts
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Alert_ID as "Alert ID"
+								Alert_Type as "Alert Type"
+								Severity as "Severity "
+								Title
+								Message
+								Risk_Level as "Risk Level"
+								Read_Status as "Read Status"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Alert_ID as "Alert ID"
+								Farmer
+								Plot
+								Crop_Plan as "Crop Plan"
+								Disease
+								Alert_Type as "Alert Type"
+								Severity as "Severity "
+								Title
+								Temperature as "Temperature "
+								Humidity
+								Message
+								Alert_Date as "Alert Date"
+								Risk_Level as "Risk Level"
+								Sent_Via as "Sent Via"
+								Read_Status as "Read Status"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report Case_Board
+			{
+				quickview
+				(
+					layout
+					(
+		 				type = 1
+						datablock1
+						(
+							layout type = 1
+							fields
+							(
+								Report_ID as "Report ID"
+								Farmer
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Report_ID as "Report ID"
+								Crop_Plan as "Crop Plan"
+								Farmer
+								Report_Date as "Report Date"
+								Suspected_Disease as "Suspected Disease"
+								Problem_Category as "Problem Category"
+								Symptoms
+								Affected_Area as "Affected Area (%)"
+								Severity
+								Photo
+								Assigned_Officer as "Assigned Officer"
+								Status
+								Remarks
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+			report All_Weather_Updates
+			{
+				quickview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Village
+								Weather_Date as "Weather Date"
+								Temperature
+								Rainfall_mm as "Rainfall(mm)"
+								Humidity
+								Weather_Condition as "Weather Condition"
+								Alerts_Created as "Alerts Created"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						record
+						(
+							Edit   	   
+							Duplicate   	   
+							Delete   	   
+    					)
+						)
+    				action
+    				(
+						on click
+						(
+							View Record   	   
+    					)
+						on right click
+						(
+							Edit   	   
+							Delete   	   
+							Duplicate   	   
+							View Record   	   
+    					)
+     				)
+				)
+
+				detailview
+				(
+					layout
+					(
+						datablock1
+						(
+							fields
+							(
+								Village
+								Weather_Date as "Weather Date"
+								Temperature
+								Rainfall_mm as "Rainfall(mm)"
+								Humidity
+								Weather_Condition as "Weather Condition"
+								Alerts_Created as "Alerts Created"
+							)
+						)
+					)
+						menu
+						(
+							header
+							(
+								Edit 
+								Duplicate 
+								Delete 
+							)
+						)
+				)
+			}
+		}
+		menu
+		{
+			space Space
+			{
+				displayname = "Space"
+				icon = "objects-spaceship"
+
+				section Soil_Types
+				{
+					displayname = "Soil Types"
+					icon = "nature-plant-ground"
+					form  Soil_Type
+					{
+						icon = "nature-plant-ground"
+					}
+					report All_Soil_Types
+					{
+						icon = "tech-desktop"
+					}
+				}
+				section ZC_App_Preferences
+				{
+					displayname = "App Preferences"
+					icon = "design-app"
+					systemcomponent
+					{
+						type = localization
+						displayname = "Language Selection"
+						icon = "education-language"
+					}
+					systemcomponent
+					{
+						type = connection
+						displayname = "Integrations"
+						icon = "tech-2-connection"
+					}
+				}
+				section ZC_Approvals
+				{
+					displayname = "Approvals"
+					icon = "ui-2-hourglass"
+					systemcomponent
+					{
+						type = approval
+						approval status = pending
+						displayname = "Pending Tasks"
+						icon = "ui-2-hourglass"
+					}
+					systemcomponent
+					{
+						type = approval
+						approval status = completed
+						displayname = "Completed Tasks"
+						icon = "design-todo"
+					}
+				}
+				section SharedAnalytics_Section
+				{
+					type = shared_user_report_section
+					displayname = "Reports"
+					icon = "business-chart-bar-33"
+				}
+				section Crops
+				{
+					displayname = "Crops"
+					icon = "design-crop"
+					form  Crop
+					{
+						icon = "design-crop"
+					}
+					report All_Crops
+					{
+						icon = "tech-desktop"
+					}
+				}
+				section Masters
+				{
+					displayname = "Masters"
+					icon = "sport-tennis"
+					form  Seed_Master
+					{
+						icon = "sport-crown"
+					}
+					report All_Masters
+					{
+						icon = "tech-desktop"
+					}
+				}
+				section Fertilizer_Masters
+				{
+					displayname = "Fertilizer Masters"
+					icon = "food-watermelon"
+					form  Fertilizer_Master
+					{
+						icon = "sport-crown"
+					}
+					report All_Fertilizer_Masters
+					{
+						icon = "tech-desktop"
+					}
+				}
+				section Disease_Masters
+				{
+					displayname = "Disease Masters"
+					icon = "sport-user-swim"
+					form  Disease_Master
+					{
+						icon = "sport-crown"
+					}
+					report All_Disease_Masters
+					{
+						icon = "tech-desktop"
+					}
+				}
+				section Farmer
+				{
+					displayname = "Farmer"
+					icon = "transportation-tractor"
+					form  Farmer
+					{
+						icon = "transportation-tractor"
+					}
+					report Farmer_Report
+					{
+						icon = "tech-desktop"
+					}
+				}
+				section Farm_Plots
+				{
+					displayname = "Farm Plots"
+					icon = "transportation-tractor"
+					form  Farm_Plot
+					{
+						icon = "transportation-tractor"
+					}
+					report All_Farm_Plots
+					{
+						icon = "tech-desktop"
+					}
+				}
+				section Crop_Plans
+				{
+					displayname = "Crop Plans"
+					icon = "design-crop"
+					form  Crop_Plan
+					{
+						icon = "design-crop"
+					}
+					report All_Crop_Plans
+					{
+						icon = "tech-desktop"
+					}
+ 
+					report Crop_wise_Area
+					{
+						icon = "design-crop"
+					}
+				}
+				section Crop_Health_Logs
+				{
+					displayname = "Crop Health Logs"
+					icon = "design-crop"
+					form  Crop_Health_Log
+					{
+						icon = "design-crop"
+					}
+					report All_Crop_Health_Logs
+					{
+						icon = "tech-desktop"
+					}
+ 
+					report Crop_Health_Trend
+					{
+						icon = "design-crop"
+					}
+				}
+				section Irrigation_Log
+				{
+					displayname = "Irrigation Log"
+					icon = "envir-level"
+					form  Irrigation_Log
+					{
+						icon = "envir-level"
+					}
+					report Irrigation_Log_Report
+					{
+						icon = "tech-desktop"
+					}
+				}
+				section Fertilizer_Usage
+				{
+					displayname = "Fertilizer Usage"
+					icon = "envir-fuel-electric"
+					form  Fertilizer_Usage
+					{
+						icon = "envir-fuel-electric"
+					}
+					report All_Fertilizer_Usage
+					{
+						icon = "tech-desktop"
+					}
+ 
+					report Fertilizer_Usage_Chart
+					{
+						icon = "envir-fuel-electric"
+					}
+				}
+				section Pest_Disease_Reports
+				{
+					displayname = "Pest Disease Reports"
+					icon = "health-woman"
+					form  Pest_Disease_Report
+					{
+						icon = "health-woman"
+					}
+					report All_Pest_Disease_Reports
+					{
+						icon = "tech-desktop"
+					}
+ 
+					report Disease_Report_by_Severity
+					{
+						icon = "health-woman"
+					}
+					report Open_Pest_Disease_Report
+					{
+						icon = "health-woman"
+					}
+					report Open_Reports
+					{
+						icon = "health-woman"
+					}
+					report Case_Board
+					{
+						icon = "health-woman"
+					}
+ 
+					report Farmer_wise_Issues
+					{
+						icon = "health-woman"
+					}
+ 
+					report Cases_by_Category
+					{
+						icon = "health-woman"
+					}
+				}
+				section Inventories
+				{
+					displayname = "Inventories"
+					icon = "shopping-stock"
+					form  Inventory
+					{
+						icon = "shopping-stock"
+					}
+					report All_Inventories
+					{
+						icon = "tech-desktop"
+					}
+ 
+					report Stock_Levels
+					{
+						icon = "shopping-stock"
+					}
+					report Low_Stock_Items
+					{
+						icon = "shopping-stock"
+					}
+				}
+				section Farmer_Requests
+				{
+					displayname = "Farmer Requests"
+					icon = "business-money-12"
+					form  Farmer_Request
+					{
+						icon = "business-cheque"
+					}
+					report All_Farmer_Requests
+					{
+						icon = "tech-desktop"
+					}
+					report Requests_by_Status
+					{
+						icon = "business-cheque"
+					}
+ 
+					report Montly_Request
+					{
+						icon = "business-cheque"
+					}
+				}
+				section Officer_Advices
+				{
+					displayname = "Officer Advices"
+					icon = "holidays-sickle"
+					form  Officer_Advice
+					{
+						icon = "holidays-sickle"
+					}
+					report All_Officer_Advices
+					{
+						icon = "tech-desktop"
+					}
+				}
+				section Alerts
+				{
+					displayname = "Alerts"
+					icon = "weather-sun-cloud-light"
+					form  Alert
+					{
+						icon = "weather-sun-cloud-light"
+					}
+					report All_Alerts
+					{
+						icon = "tech-desktop"
+					}
+					report My_Alerts
+					{
+						icon = "weather-sun-cloud-light"
+					}
+				}
+				section Officers
+				{
+					displayname = "Officers"
+					icon = "users-2-police"
+					form  Officer
+					{
+						icon = "holidays-sickle"
+					}
+					report All_Officers
+					{
+						icon = "tech-desktop"
+					}
+				}
+				section Crop_Recommendations
+				{
+					displayname = "Crop Recommendations"
+					icon = "design-crop"
+					form  Crop_Recommendation
+					{
+						icon = "design-crop"
+					}
+					report All_Crop_Recommendations
+					{
+						icon = "tech-desktop"
+					}
+				}
+				section Crop_Guides
+				{
+					displayname = "Crop Guides"
+					icon = "design-crop"
+					form  Crop_Guide
+					{
+						icon = "design-crop"
+					}
+					report All_Crop_Guides
+					{
+						icon = "tech-desktop"
+					}
+				}
+				section Articles
+				{
+					displayname = "Articles"
+					icon = "education-books-46"
+					form  Farming_Article
+					{
+						icon = "transportation-tractor"
+					}
+					report All_Articles
+					{
+						icon = "tech-desktop"
+					}
+				}
+				section Farmer_Dashboard
+				{
+					displayname = "Farmer Dashboard"
+					icon = "ui-1-dashboard-half"
+					page Farmer_Dashboard
+					{
+						icon = "ui-1-dashboard-half"
+					}
+					page Officer_Dashboard
+					{
+						icon = "tech-2-l-security"
+					}
+					page Admin_Dashboard
+					{
+						icon = "ui-1-dashboard-half"
+					}
+				}
+				section Weather_Updates
+				{
+					displayname = "Weather Updates"
+					icon = "weather-wind"
+					form  Weather_Update
+					{
+						icon = "weather-wind"
+					}
+					report All_Weather_Updates
+					{
+						icon = "tech-desktop"
+					}
+				}
+			}
+			preference
+			{
+				icon
+				{
+					style = outline
+				}
+			}
+		}
+		customize
+		{
+			font = "lato"
+			color options
+			{
+				color = "11"
+			}
+			logo
+			{
+				preference = "app_icon"
+				placement = "left"
+			}
+		}
+	}
+	phone
+	{
+		forms
+		{
+			form Alert
+			{
+				label placement = auto
+			}
+			form Crop
+			{
+				label placement = auto
+			}
+			form Crop_Guide
+			{
+				label placement = auto
+			}
+			form Crop_Health_Log
+			{
+				label placement = auto
+			}
+			form Crop_Plan
+			{
+				label placement = auto
+			}
+			form Crop_Recommendation
+			{
+				label placement = auto
+			}
+			form Disease_Master
+			{
+				label placement = auto
+			}
+			form Farm_Plot
+			{
+				label placement = auto
+			}
+			form Farmer
+			{
+				label placement = auto
+			}
+			form Farmer_Request
+			{
+				label placement = auto
+			}
+			form Farming_Article
+			{
+				label placement = auto
+			}
+			form Fertilizer_Master
+			{
+				label placement = auto
+			}
+			form Fertilizer_Usage
+			{
+				label placement = auto
+			}
+			form Inventory
+			{
+				label placement = auto
+			}
+			form Irrigation_Log
+			{
+				label placement = auto
+			}
+			form Officer
+			{
+				label placement = auto
+			}
+			form Officer_Advice
+			{
+				label placement = auto
+			}
+			form Pest_Disease_Report
+			{
+				label placement = auto
+			}
+			form Seed_Master
+			{
+				label placement = auto
+			}
+			form Soil_Type
+			{
+				label placement = auto
+			}
+			form Weather_Update
+			{
+				label placement = auto
+			}
+		}
+		customize
+		{
+			layout = twocolumn
+			font = "default"
+			style = "3"
+			color options
+			{
+				color = chryslerpurple
+			}
+			logo
+			{
+				preference = "none"
+			}
+		}
+	}
+	tablet
+	{
+		forms
+		{
+			form Alert
+			{
+				label placement = auto
+			}
+			form Crop
+			{
+				label placement = auto
+			}
+			form Crop_Guide
+			{
+				label placement = auto
+			}
+			form Crop_Health_Log
+			{
+				label placement = auto
+			}
+			form Crop_Plan
+			{
+				label placement = auto
+			}
+			form Crop_Recommendation
+			{
+				label placement = auto
+			}
+			form Disease_Master
+			{
+				label placement = auto
+			}
+			form Farm_Plot
+			{
+				label placement = auto
+			}
+			form Farmer
+			{
+				label placement = auto
+			}
+			form Farmer_Request
+			{
+				label placement = auto
+			}
+			form Farming_Article
+			{
+				label placement = auto
+			}
+			form Fertilizer_Master
+			{
+				label placement = auto
+			}
+			form Fertilizer_Usage
+			{
+				label placement = auto
+			}
+			form Inventory
+			{
+				label placement = auto
+			}
+			form Irrigation_Log
+			{
+				label placement = auto
+			}
+			form Officer
+			{
+				label placement = auto
+			}
+			form Officer_Advice
+			{
+				label placement = auto
+			}
+			form Pest_Disease_Report
+			{
+				label placement = auto
+			}
+			form Seed_Master
+			{
+				label placement = auto
+			}
+			form Soil_Type
+			{
+				label placement = auto
+			}
+			form Weather_Update
+			{
+				label placement = auto
+			}
+		}
+		customize
+		{
+			layout = slidingpane
+			font = "default"
+			style = "3"
+			color options
+			{
+				color = red
+			}
+			logo
+			{
+				preference = "none"
+			}
+		}
+	}
+	translation
+{
+{"Language_Settings":{"LANGAGUE_WITH_LOGIN":"browser"}}
+}
+	reports configuration
+	{
+	
+		Version = 2000057056108
+		Key     = "BAY28k29XEdFThzbEa4ey2VEPEHJS3XmyM4RzYseRfn18SOsjwCuEDMRjhAJXbZ1mkRee4dZbJ82Xm1Xt3kyFaM43gmvyGV4QYOp"
+	}
+}
